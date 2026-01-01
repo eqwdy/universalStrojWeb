@@ -1,0 +1,13 @@
+.freeConsultation {
+  color: white;
+  background-color: var(--color-dark-gray);
+
+  &__title {
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    margin-bottom: 20px;
+  }
+}

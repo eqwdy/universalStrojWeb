@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Карточка католога</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://uniwersalstroj.ru" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="stylesheet" href="/css/catalogCard.css" />
+    <link rel="stylesheet" href="/css/normalize.css" />
+    <!-- <script src="https://api-maps.yandex.ru/v3/?apikey=c3c0cc1a-21be-44ca-9bb4-386e773db1a3Y&lang=ru_RU"></script> -->
+  </head>
+  <body>
+    <header class="header hidden-mobile">
+      <div class="header__inner container">
+        <address class="header__contacts">
+          <ul class="header__contacts-items">
+            <li class="header__contacts-item">
+              <a href="tel:+79780829838" class="header__contacts-phone link"
+                ><img
+                  src="/images/header/phone.svg"
+                  alt=""
+                  width="20px"
+                  height="20px"
+                  loading="lazy"
+                  role="presentation"
+                />
+                <span>+7 978 082-98-38</span></a
+              >
+              <a
+                class="header__contacts-address link"
+                href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/address.svg"
+                  alt=""
+                  width="20px"
+                  height="20px"
+                  loading="lazy"
+                  role="presentation"
+                /><span>г. Феодосия, Переулок Керченский 4 В</span>
+              </a>
+            </li>
+            <li class="header__contacts-item">
+              <a
+                href="mailto:uniwersalstroj2008@mail.ru"
+                class="header__contacts-mail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/mail.svg"
+                  alt="Mail"
+                  width="30px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href="https://vk.com/id516711688"
+                class="header__contacts-vk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/vk logo.svg"
+                  alt="ВКОНТАКТЕ"
+                  width="30px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href="https://wa.me/79780829838"
+                class="header__contacts-wa"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/whatsapp logo.svg"
+                  alt="WhatsApp"
+                  width="30px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </a>
+            </li>
+          </ul>
+        </address>
+        <div class="header__wrapper">
+          <a href="/">
+            <div class="header__logo">
+              <img
+                src="/images/header/universalstroj logo.jpeg"
+                alt="УНИВЕРСАЛСТРОЙ"
+                class="header__logo-img"
+                loading="lazy"
+                width="150"
+              />
+            </div>
+          </a>
+          <nav class="header__nav">
+            <ul class="header__nav-items">
+              <li class="header__nav-item">
+                <a href="/" class="header__nav-link link">Главная</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="/gallery.html" class="header__nav-link link"
+                  >Галлерея</a
+                >
+              </li>
+              <li class="header__nav-item">
+                <a href="/catalog.html" class="header__nav-link link">Товары</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="/contacts.html" class="header__nav-link link"
+                  >Контакты</a
+                >
+              </li>
+              <li class="header__nav-item">
+                <button
+                  type="button"
+                  class="header__basket-button"
+                  role="button"
+                  aria-controls="basketInner"
+                  aria-label="Открыть корзину"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 10L18.5145 17.4276C18.3312 18.3439 18.2396 18.8021 18.0004 19.1448C17.7894 19.447 17.499 19.685 17.1613 19.8326C16.7783 20 16.3111 20 15.3766 20H8.62337C7.6889 20 7.22166 20 6.83869 19.8326C6.50097 19.685 6.2106 19.447 5.99964 19.1448C5.76041 18.8021 5.66878 18.3439 5.48551 17.4276L4 10M20 10H18M20 10H21M4 10H3M4 10H6M6 10H18M6 10L9 4M18 10L15 4M9 13V16M12 13V16M15 13V16"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="pageCard">
+        <div class="pageCard__inner container" id="cardContainer">
+          <!-- <article class="card">
+            <div class="card__img">
+              <img src="/images/catalog/plitka.jpg" alt="" />
+            </div>
+            <div class="card__body">
+              <h1 class="card__title">Тротуарная плитка</h1>
+              <div class="card__price" value="580" id="cardPrice">
+                580&nbsp;₽
+              </div>
+              <div class="card__radio">
+                <h2 id="typeLabel" class="card__radio-title">Тип плитки</h2>
+                <div
+                  class="card__radio-group"
+                  role="radiogroup"
+                  aria-labelledby="typeLabel"
+                >
+                  <button
+                    type="button"
+                    class="card__radio-button"
+                    aria-checked="false"
+                    value="old town"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    Старый город
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button"
+                    aria-checked="false"
+                    value="coil"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    Катушка
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button"
+                    aria-checked="false"
+                    value="sota"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    Сота
+                  </button>
+                </div>
+              </div>
+              <div class="card__radio">
+                <h2 class="card__radio-title" id="sizeTitle">Размер</h2>
+                <div
+                  class="card__radio-group"
+                  role="radiogroup"
+                  aria-labelledby="sizeTitle"
+                >
+                  <button
+                    type="button"
+                    class="card__radio-button"
+                    aria-checked="false"
+                    value="25mm"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    25мм
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button"
+                    aria-checked="false"
+                    value="40mm"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    40мм
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button"
+                    aria-checked="false"
+                    value="60mm"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    60мм
+                  </button>
+                </div>
+              </div>
+              <div class="card__radio">
+                <h2 class="card__radio-title" id="radio-title">Цвет</h2>
+                <div
+                  class="card__radio-group-color"
+                  role="radiogroup"
+                  aria-labelledby="radio-title"
+                >
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Чёрный"
+                    value="black"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-black"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Серый"
+                    value="gray"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-gray"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Белый"
+                    value="white"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-white"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Коричневый"
+                    value="brown"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-brown"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Красный"
+                    value="red"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-red"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Жёлтый"
+                    value="yellow"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-yellow"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Оранжевый"
+                    value="orange"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-orange"></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="card__radio-button-color"
+                    aria-checked="false"
+                    aria-label="Оливковый"
+                    value="olive"
+                    role="radio"
+                    tabindex="0"
+                  >
+                    <div class="card__radio-olive"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="card__description-wrapper">
+                <button
+                  type="button"
+                  class="card__description-button"
+                  aria-controls="cardDescription"
+                  aria-expanded="false"
+                  tabindex="0"
+                >
+                  Описание
+                </button>
+                <p
+                  class="card__description"
+                  aria-hidden="true"
+                  id="cardDescription"
+                  aria-live="polite"
+                >
+                  Производим тротуарную плитку кирпич, старый город, катушка,
+                  сота. Толщина 25 мм, 40 мм, 60 мм. Цвета серый, коричневый,
+                  красный, чёрный, оливковый, белый, жёлтый, оранжевый
+                </p>
+              </div>
+            </div>
+            <div class="card__buy">
+              <h2 class="count__title">Количество</h2>
+              <div class="card__buy-count count">
+                <button
+                  type="button"
+                  class="count__button count__button-minus"
+                  aria-label="Уменьшить количество"
+                  onclick="changeValue(false)"
+                ></button>
+                <input
+                  type="number"
+                  name="quantity"
+                  autocomplete="off"
+                  maxlength="5"
+                  min="1"
+                  class="count__input"
+                  value="1"
+                  id="countInput"
+                />
+                <button
+                  type="button"
+                  class="count__button count__button-plus"
+                  aria-label="Увеличить количество"
+                  onclick="changeValue(true)"
+                ></button>
+              </div>
+              <button
+                type="button"
+                class="card__buy-button button"
+                id="cardToBasket"
+              >
+                Добавить в корзину
+              </button>
+            </div>
+          </article> -->
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__inner container">
+        <h2 class="visually-hidden">Подвал сайта</h2>
+        <address class="footer__contacts">
+          <ul class="footer__contacts-items">
+            <li class="footer__contacts-item">
+              <a href="tel:+79780829838" class="footer__contacts-link">
+                <div class="footer__contacts-img">
+                  <img
+                    src="/images/footer/phone.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+                <span>+7 978 082-98-38</span>
+              </a>
+            </li>
+            <li class="footer__contacts-item">
+              <a
+                href="mailto:uniwersalstroj2008@mail.ru"
+                class="footer__contacts-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="footer__contacts-img">
+                  <img
+                    src="/images/footer/mail.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+                <span>uniwersalstroj2008@mail.ru</span>
+              </a>
+            </li>
+            <li class="footer__contacts-item">
+              <a
+                class="footer__contacts-link"
+                href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="footer__contacts-img">
+                  <img
+                    src="/images/footer/address.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+                <span>г. Феодосия, Переулок Керченский 4 В</span>
+              </a>
+            </li>
+          </ul>
+        </address>
+        <div class="footer__body">
+          <nav class="footer__nav">
+            <ul class="footer__nav-items">
+              <li class="footer__nav-item">
+                <a href="/" class="footer__nav-link link">Главная</a>
+              </li>
+              <li class="footer__nav-item">
+                <a href="/gallery.html" class="footer__nav-link link"
+                  >Галлерея</a
+                >
+              </li>
+              <li class="footer__nav-item">
+                <a href="/catalog.html" class="footer__nav-link link">Товары</a>
+              </li>
+              <li class="footer__nav-item">
+                <a href="/contacts.html" class="footer__nav-link link"
+                  >Контакты</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <div class="footer__yaCard">
+            <div class="footer__yaCard-card"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <section class="burger" id="burger">
+      <button
+        type="button"
+        id="burgerBtn"
+        class="burger__button"
+        role="button"
+        aria-expanded="false"
+        aria-label="Открыть бургер меню"
+      ></button>
+      <div class="burger__inner" id="burgerInner">
+        <div class="burger__close" id="burgerClose"></div>
+        <div class="burger__logo">
+          <img
+            src="/images/header/universalstroj logo.jpeg"
+            alt="УНИВЕРСАЛСТРОЙ"
+            width="250"
+            loading="lazy"
+          />
+        </div>
+        <nav class="burger__nav">
+          <ul class="burger__nav-items">
+            <li class="burger__nav-item">
+              <a href="/" class="burger__nav-link">Главная</a>
+            </li>
+            <li class="burger__nav-item">
+              <a href="/gallery.html" class="burger__nav-link">Галлерея</a>
+            </li>
+            <li class="burger__nav-item">
+              <a href="/catalog.html" class="burger__nav-link">Товары</a>
+            </li>
+            <li class="burger__nav-item">
+              <a href="/contacts.html" class="burger__nav-link">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+        <address class="burger__contacts">
+          <div class="burger__contacts-time">Пн-Сб: 07:30–15:00</div>
+          <div class="burger__contacts-phone">+7 978 082-98-38</div>
+        </address>
+      </div>
+    </section>
+    <section class="basket">
+      <button
+        type="button"
+        class="basket__button"
+        role="button"
+        aria-controls="basketInner"
+        aria-label="Открыть корзину"
+      >
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 10L18.5145 17.4276C18.3312 18.3439 18.2396 18.8021 18.0004 19.1448C17.7894 19.447 17.499 19.685 17.1613 19.8326C16.7783 20 16.3111 20 15.3766 20H8.62337C7.6889 20 7.22166 20 6.83869 19.8326C6.50097 19.685 6.2106 19.447 5.99964 19.1448C5.76041 18.8021 5.66878 18.3439 5.48551 17.4276L4 10M20 10H18M20 10H21M4 10H3M4 10H6M6 10H18M6 10L9 4M18 10L15 4M9 13V16M12 13V16M15 13V16"
+            stroke="#000000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button
+        class="basket__close"
+        id="basketClose"
+        aria-label="Закрыть корзину"
+        aria-hidden="true"
+        disabled
+      ></button>
+      <div class="basket__inner" id="basketInner" aria-hidden="true"></div>
+    </section>
+    <section class="popup" id="popup" aria-hidden="true">
+      <div class="popup__close" id="popupClose"></div>
+      <div class="popup__inner" id="popupInner">
+        <span>Ваша заяка <br />отправленна!</span>
+        <span>Мы вам перезвоним</span>
+      </div>
+      <div class="popup__timer"></div>
+    </section>
+    <script src="/js/burger.js"></script>
+    <script src="/js/popup.js"></script>
+    <script src="/js/basket.js"></script>
+    <script src="/js/catalog/card.js"></script>
+  </body>
+</html>

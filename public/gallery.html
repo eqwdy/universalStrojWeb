@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Галлерея</title>
+    <link rel="stylesheet" href="/css/gallery.css" />
+    <link rel="stylesheet" href="/css/normalize.css" />
+    <!-- <script src="https://api-maps.yandex.ru/v3/?apikey=c3c0cc1a-21be-44ca-9bb4-386e773db1a3Y&lang=ru_RU"></script> -->
+  </head>
+  <body>
+    <svg
+      class="svg-icon-preload"
+      width="42"
+      height="42"
+      viewBox="0 0 42 42"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <symbol id="svg-star" viewBox="0 0 42 42">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M20.959 33.14l-10.345 6.615c-.724.463-1.673.229-2.119-.523a1.65 1.65 0 01-.183-1.224l3.005-12.52-8.728-7.106a1.639 1.639 0 01-.26-2.243c.264-.35.656-.57 1.083-.606l11.406-.985 4.744-11.575c.332-.812 1.237-1.19 2.02-.845.367.162.66.467.815.849l4.706 11.57 11.484.986c.847.073 1.478.845 1.408 1.725a1.616 1.616 0 01-.587 1.127l-8.763 7.103 3 12.529c.204.856-.298 1.723-1.123 1.936a1.492 1.492 0 01-1.178-.19L20.959 33.14z"
+          fill="currentColor"
+        ></path>
+      </symbol>
+    </svg>
+    <header class="header hidden-mobile">
+      <div class="header__inner container">
+        <address class="header__contacts">
+          <ul class="header__contacts-items">
+            <li class="header__contacts-item">
+              <a href="tel:+79780829838" class="header__contacts-phone link"
+                ><img
+                  src="/images/header/phone.svg"
+                  alt=""
+                  width="20px"
+                  height="20px"
+                  loading="lazy"
+                  role="presentation"
+                />
+                <span>+7 978 082-98-38</span></a
+              >
+              <a
+                class="header__contacts-address link"
+                href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/address.svg"
+                  alt=""
+                  width="20px"
+                  height="20px"
+                  loading="lazy"
+                  role="presentation"
+                /><span>г. Феодосия, Переулок Керченский 4 В</span>
+              </a>
+            </li>
+            <li class="header__contacts-item">
+              <a
+                href="mailto:uniwersalstroj2008@mail.ru"
+                class="header__contacts-mail"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/mail.svg"
+                  alt="Mail"
+                  width="30px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href="https://vk.com/id516711688"
+                class="header__contacts-vk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/vk logo.svg"
+                  alt="ВКОНТАКТЕ"
+                  width="30px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href="https://wa.me/79780829838"
+                class="header__contacts-wa"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/header/whatsapp logo.svg"
+                  alt="WhatsApp"
+                  width="30px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </a>
+            </li>
+          </ul>
+        </address>
+        <div class="header__wrapper">
+          <div class="header__logo">
+            <img
+              src="/images/header/universalstroj logo.jpeg"
+              alt="УНИВЕРСАЛСТРОЙ"
+              class="header__logo-img"
+              loading="lazy"
+              width="150"
+            />
+          </div>
+          <nav class="header__nav">
+            <ul class="header__nav-items">
+              <li class="header__nav-item">
+                <a href="/" class="header__nav-link link">Главная</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="/gallery.html" class="header__nav-link link"
+                  >Галлерея</a
+                >
+              </li>
+              <li class="header__nav-item">
+                <a href="/catalog.html" class="header__nav-link link">Товары</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="/contacts.html" class="header__nav-link link"
+                  >Контакты</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="gallery">
+        <div class="gallery__inner container">
+          <h1 class="gallery__title title-big" id="galleryTitle">
+            Наши работы
+          </h1>
+          <ul class="gallery__items">
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="1"
+              >
+                <img
+                  src="/images/gallery/locations/1.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="2"
+              >
+                <img
+                  src="/images/gallery/locations/2.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="3"
+              >
+                <img
+                  src="/images/gallery/locations/3.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="4"
+              >
+                <img
+                  src="/images/gallery/locations/4.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="5"
+              >
+                <img
+                  src="/images/gallery/locations/5.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="6"
+              >
+                <img
+                  src="/images/gallery/locations/6.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="7"
+              >
+                <img
+                  src="/images/gallery/locations/7.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="8"
+              >
+                <img
+                  src="/images/gallery/locations/8.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="9"
+              >
+                <img
+                  src="/images/gallery/locations/9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="10"
+              >
+                <img
+                  src="/images/gallery/locations/10.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="11"
+              >
+                <img
+                  src="/images/gallery/locations/11.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="12"
+              >
+                <img
+                  src="/images/gallery/locations/12.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="13"
+              >
+                <img
+                  src="/images/gallery/locations/13.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="14"
+              >
+                <img
+                  src="/images/gallery/locations/14.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="15"
+              >
+                <img
+                  src="/images/gallery/locations/15.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="16"
+              >
+                <img
+                  src="/images/gallery/locations/16.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="17"
+              >
+                <img
+                  src="/images/gallery/locations/17.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="18"
+              >
+                <img
+                  src="/images/gallery/locations/18.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="19"
+              >
+                <img
+                  src="/images/gallery/locations/19.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="20"
+              >
+                <img
+                  src="/images/gallery/locations/20.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="21"
+              >
+                <img
+                  src="/images/gallery/locations/21.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="22"
+              >
+                <img
+                  src="/images/gallery/locations/22.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="23"
+              >
+                <img
+                  src="/images/gallery/locations/23.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+            <li class="gallery__item">
+              <button
+                class="gallery__img"
+                aria-expanded="false"
+                aria-controls="overlay"
+                data-position="24"
+              >
+                <img
+                  src="/images/gallery/locations/24.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__inner container">
+        <h2 class="visually-hidden">Подвал сайта</h2>
+        <address class="footer__contacts">
+          <ul class="footer__contacts-items">
+            <li class="footer__contacts-item">
+              <a href="tel:+79780829838" class="footer__contacts-link">
+                <div class="footer__contacts-img">
+                  <img
+                    src="/images/footer/phone.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+                <span>+7 978 082-98-38</span>
+              </a>
+            </li>
+            <li class="footer__contacts-item">
+              <a
+                href="mailto:uniwersalstroj2008@mail.ru"
+                class="footer__contacts-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="footer__contacts-img">
+                  <img
+                    src="/images/footer/mail.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+                <span>uniwersalstroj2008@mail.ru</span>
+              </a>
+            </li>
+            <li class="footer__contacts-item">
+              <a
+                class="footer__contacts-link"
+                href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="footer__contacts-img">
+                  <img
+                    src="/images/footer/address.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+                <span>г. Феодосия, Переулок Керченский 4 В</span>
+              </a>
+            </li>
+          </ul>
+        </address>
+        <div class="footer__body">
+          <nav class="footer__nav">
+            <ul class="footer__nav-items">
+              <li class="footer__nav-item">
+                <a href="/" class="footer__nav-link link">Главная</a>
+              </li>
+              <li class="footer__nav-item">
+                <a href="/gallery.html" class="footer__nav-link link"
+                  >Галлерея</a
+                >
+              </li>
+              <li class="footer__nav-item">
+                <a href="/catalog.html" class="footer__nav-link link">Товары</a>
+              </li>
+              <li class="footer__nav-item">
+                <a href="/contacts.html" class="footer__nav-link link"
+                  >Контакты</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <div class="footer__yaCard">
+            <div class="footer__yaCard-card"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <section
+      class="overlay"
+      id="overlay"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="galleryTitle"
+    >
+      <div class="overlay__slider slider" id="slider" tabindex="-1">
+        <ul class="slider__items">
+          <li class="slider__item">
+            <img src="/images/gallery/locations/1.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/2.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/3.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/4.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/5.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/6.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/7.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/8.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/9.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/10.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/11.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/12.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/13.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/14.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/15.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/16.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/17.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/18.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/19.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/20.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/21.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/22.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/23.jpg" alt="" loading="lazy" />
+          </li>
+          <li class="slider__item">
+            <img src="/images/gallery/locations/24.jpg" alt="" loading="lazy" />
+          </li>
+        </ul>
+        <button
+          type="button"
+          class="slider__button"
+          aria-label="Предыдущая работа"
+          onclick="sliderMove(false)"
+        >
+          <img src="/images/gallery/arrow-circle-left.svg" alt="<" />
+        </button>
+        <button
+          type="button"
+          class="slider__button"
+          aria-label="Следующая работа"
+          onclick="sliderMove(true)"
+        >
+          <img src="/images/gallery/arrow-circle-right.svg" alt=">" />
+        </button>
+      </div>
+    </section>
+    <section class="burger" id="burger">
+      <button
+        type="button"
+        id="burgerBtn"
+        class="burger__button"
+        role="button"
+        aria-expanded="false"
+        aria-label="Открыть бургер меню"
+      ></button>
+      <div class="burger__inner" id="burgerInner">
+        <div class="burger__close" id="burgerClose"></div>
+        <div class="burger__logo">
+          <img
+            src="/images/header/universalstroj logo.jpeg"
+            alt="УНИВЕРСАЛСТРОЙ"
+            width="250"
+            loading="lazy"
+          />
+        </div>
+        <nav class="burger__nav">
+          <ul class="burger__nav-items">
+            <li class="burger__nav-item">
+              <a href="/" class="burger__nav-link">Главная</a>
+            </li>
+            <li class="burger__nav-item">
+              <a href="/gallery.html" class="burger__nav-link">Галлерея</a>
+            </li>
+            <li class="burger__nav-item">
+              <a href="/catalog.html" class="burger__nav-link">Товары</a>
+            </li>
+            <li class="burger__nav-item">
+              <a href="/contacts.html" class="burger__nav-link">Контакты</a>
+            </li>
+          </ul>
+        </nav>
+        <address class="burger__contacts">
+          <div class="burger__contacts-time">Пн-Сб: 07:30–15:00</div>
+          <div class="burger__contacts-phone">+7 978 082-98-38</div>
+        </address>
+      </div>
+    </section>
+    <script src="/js/burger.js"></script>
+    <script src="/js/gallery/gallery.js"></script>
+  </body>
+</html>

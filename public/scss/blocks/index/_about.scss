@@ -1,0 +1,112 @@
+.about {
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    row-gap: 20px;
+    justify-content: center;
+
+    @media (max-width: 1280px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 880px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.plus {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  padding: 10px 15px;
+  border-radius: 20px;
+  transition: var(--transition-button);
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 15px;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+    }
+
+    &__svg {
+      color: white;
+      width: 20px;
+      aspect-ratio: 1;
+
+      &-wrapper {
+        background-color: var(--color-tint-green);
+        border-radius: 50%;
+        flex: 0 0 35px;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &-header {
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    &-status {
+      position: relative;
+      flex: 0 0 28px;
+      aspect-ratio: 1;
+      transition: var(--transition-button);
+
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 2px;
+        background-color: var(--color-white-gray);
+      }
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+  }
+
+  &__description {
+    overflow: hidden;
+    height: 0;
+    color: var(--color-light-gray);
+    transition: var(--transition-button);
+  }
+
+  @include hover-only {
+    cursor: pointer;
+    transform: translateY(-5px);
+  }
+
+  &[aria-expanded="true"] {
+    .plus {
+      &__title {
+        &-status {
+          rotate: -45deg;
+        }
+      }
+
+      &__description {
+        padding-top: 15px;
+        padding-bottom: 5px;
+      }
+    }
+  }
+}

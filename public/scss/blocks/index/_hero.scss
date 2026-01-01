@@ -1,0 +1,38 @@
+.hero {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url("/images/index/hero/hero background.jpeg") center center /
+      cover no-repeat;
+    filter: brightness(0.5);
+  }
+
+  &__inner {
+    padding-block: 150px;
+    max-width: 739px;
+    color: white;
+    text-align: center;
+  }
+
+  &__title {
+    line-height: 1.2;
+
+    @media (max-width: 610px) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__description {
+    padding-inline: 5px;
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+
+    @media (max-width: 610px) {
+      display: none;
+    }
+  }
+}

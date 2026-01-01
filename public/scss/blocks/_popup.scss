@@ -1,0 +1,87 @@
+.popup {
+  position: fixed;
+  top: 2vh;
+  left: 2vw;
+  padding: 20px 40px 20px 30px;
+  font-size: 1.125rem;
+  //   max-width: 233px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  transform: translate(-100%) scale(0.5);
+  transition: var(--transition-button);
+
+  &[aria-hidden="false"] {
+    display: block;
+    transform: translate(0) scale(1);
+  }
+
+  &__close {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 30px;
+    aspect-ratio: 1;
+    --close-color: black;
+
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60%;
+      height: 2px;
+      background-color: var(--close-color);
+      transition: var(--transition-button);
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &::before {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    @include hover {
+      cursor: pointer;
+      --close-color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    // row-gap: 10px;
+
+    & span:first-child {
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    & span:last-child {
+      font-size: 1rem;
+    }
+  }
+
+  &__timer {
+    height: 4px;
+    background: #ccc;
+    margin-top: 10px;
+    border-radius: 2px;
+  }
+
+  &[aria-hidden="false"] &__timer {
+    animation: timerBar 3s linear forwards;
+  }
+
+  @keyframes timerBar {
+    from {
+      transform: scaleX(1);
+    }
+    to {
+      transform: scaleX(0);
+    }
+  }
+}
