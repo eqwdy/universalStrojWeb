@@ -1,0 +1,16 @@
+import dotenv from "dotenv";
+import TelegramBot from "node-telegram-bot-api";
+
+const token = process.env.BOT_TOKEN;
+const bot = new TelegramBot(token, { polling: true });
+bot.setMyCommands([{ command: "/getchatid", description: "Получить ID чата" }]);
+
+bot.addListener("message", (msg) => {
+  if (msg.text === "/getchatid") {
+    try {
+      bot.sendMessage(msg.chat.id, `ID текущего чата: ${msg.chat.id}`);
+    } catch (error) {
+      console.error(`Ошибка при отправке сообщения ботом: ${error}`);
+    }
+  }
+});
