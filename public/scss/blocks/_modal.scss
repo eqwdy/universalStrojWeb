@@ -122,11 +122,17 @@
     &::placeholder {
       -webkit-user-select: none;
       user-select: none;
+      opacity: 0;
+      transition: var(--transition-button);
     }
 
     &:focus {
       border-color: #02923d;
       box-shadow: 0 0 4px #02923e75;
+
+      &::placeholder {
+        opacity: 1;
+      }
     }
 
     &.just-validate-error-field {

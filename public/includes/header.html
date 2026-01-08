@@ -1,0 +1,164 @@
+<header class="header hidden-mobile">
+  <div class="header__inner container">
+    <address class="header__contacts">
+      <ul class="header__contacts-items">
+        <li class="header__contacts-item">
+          <a href="tel:+79780829838" class="header__contacts-phone link"
+            ><img
+              src="/images/header/phone.svg"
+              alt=""
+              width="20px"
+              height="20px"
+              loading="lazy"
+              role="presentation"
+            />
+            <span>+7 978 082-98-38</span></a
+          >
+          <a
+            class="header__contacts-address link"
+            href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/images/header/address.svg"
+              alt=""
+              width="20px"
+              height="20px"
+              loading="lazy"
+              role="presentation"
+            /><span>г. Феодосия, Переулок Керченский 4 В</span>
+          </a>
+        </li>
+        <li class="header__contacts-item">
+          <a
+            href="mailto:uniwersalstroj2008@mail.ru"
+            class="header__contacts-mail"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/images/header/mail.svg"
+              alt="Mail"
+              width="30px"
+              height="30px"
+              loading="lazy"
+            />
+          </a>
+          <a
+            href="https://vk.com/id516711688"
+            class="header__contacts-vk"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/images/header/vk logo.svg"
+              alt="ВКОНТАКТЕ"
+              width="30px"
+              height="30px"
+              loading="lazy"
+            />
+          </a>
+          <a
+            href="https://wa.me/79780829838"
+            class="header__contacts-wa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/images/header/whatsapp logo.svg"
+              alt="WhatsApp"
+              width="30px"
+              height="30px"
+              loading="lazy"
+            />
+          </a>
+        </li>
+      </ul>
+    </address>
+    <div class="header__wrapper">
+      <a href="/">
+        <div class="header__logo">
+          <img
+            src="/images/header/universalstroj logo.jpeg"
+            alt="УНИВЕРСАЛСТРОЙ"
+            class="header__logo-img"
+            loading="lazy"
+            width="150"
+          />
+        </div>
+      </a>
+      <nav class="header__nav">
+        <ul class="header__nav-items">
+          <li class="header__nav-item">
+            <a href="/" class="header__nav-link link">Главная</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/gallery" class="header__nav-link link">Галлерея</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/catalog" class="header__nav-link link">Товары</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/contacts" class="header__nav-link link">Контакты</a>
+          </li>
+          <li class="header__nav-item">
+            <a href="/basket">
+              <button
+                type="button"
+                class="header__basket-button"
+                role="button"
+                aria-label="Открыть корзину"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 10L18.5145 17.4276C18.3312 18.3439 18.2396 18.8021 18.0004 19.1448C17.7894 19.447 17.499 19.685 17.1613 19.8326C16.7783 20 16.3111 20 15.3766 20H8.62337C7.6889 20 7.22166 20 6.83869 19.8326C6.50097 19.685 6.2106 19.447 5.99964 19.1448C5.76041 18.8021 5.66878 18.3439 5.48551 17.4276L4 10M20 10H18M20 10H21M4 10H3M4 10H6M6 10H18M6 10L9 4M18 10L15 4M9 13V16M12 13V16M15 13V16"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span
+                  class="header__basket-button-notify"
+                  id="basketButtonNotify"
+                ></span>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <script>
+    function refreshNotify() {
+      const basketButtonNotify = document.getElementById("basketButtonNotify");
+      const basket = JSON.parse(localStorage.getItem("basket")) || [];
+
+      if (!basketButtonNotify) return; // если элемента нет
+
+      basketButtonNotify.textContent = basket.length;
+
+      if (basket.length > 100) {
+        basketButtonNotify.textContent = "99+";
+      }
+
+      if (basket.length <= 0) {
+        basketButtonNotify.classList.add("visually-hidden");
+      } else {
+        basketButtonNotify.classList.remove("visually-hidden");
+      }
+    }
+    refreshNotify();
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === "basket") {
+        refreshNotify();
+      }
+    });
+  </script>
+</header>

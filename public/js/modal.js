@@ -33,13 +33,13 @@ function smartCloseOverlay(btn) {
   btn.setAttribute("aria-expanded", "false");
   btn.focus();
 }
-const openBtns = document.querySelectorAll('[aria-controls="overlay"]');
-let openedBtn = null;
-openBtns.forEach((btn) => {
+const openModalBtns = document.querySelectorAll('[aria-controls="overlay"]');
+let openedModalBtn = null;
+openModalBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    openedBtn = btn;
-    if (openedBtn) {
-      smartOpenOverlay(openedBtn);
+    openedModalBtn = btn;
+    if (openedModalBtn) {
+      smartOpenOverlay(openedModalBtn);
     } else {
       openOverlay();
     }
@@ -51,8 +51,8 @@ formClose.addEventListener("click", (e) => {
   // Animation
   form.style.transform = "translateY(-140%) scale(0.6)";
   setTimeout(() => {
-    if (openedBtn) {
-      smartCloseOverlay(openedBtn);
+    if (openedModalBtn) {
+      smartCloseOverlay(openedModalBtn);
     } else {
       closeOverlay();
     }
@@ -63,8 +63,8 @@ formClose.addEventListener("click", (e) => {
 window.addEventListener("click", (e) => {
   const overlayStatus = overlay.getAttribute("aria-hidden") === "false";
   if (overlayStatus && e.target === overlay) {
-    if (openedBtn) {
-      smartCloseOverlay(openedBtn);
+    if (openedModalBtn) {
+      smartCloseOverlay(openedModalBtn);
     } else {
       closeOverlay();
     }
@@ -96,8 +96,8 @@ overlay.addEventListener("keydown", (e) => {
   }
 
   if (e.key === "Escape") {
-    if (openedBtn) {
-      smartCloseOverlay(openedBtn);
+    if (openedModalBtn) {
+      smartCloseOverlay(openedModalBtn);
     } else {
       closeOverlay();
     }
@@ -105,30 +105,47 @@ overlay.addEventListener("keydown", (e) => {
 });
 
 const validator = new JustValidate("#form");
+const formTel = document.getElementById("formTel");
+const formTelMask = new Inputmask("+7(999) 999-99-99");
+formTelMask.mask(formTel);
+
 validator
   .addField("#formName", [
     {
       rule: "required",
-      errorMessage: "Введите ваше имя!",
+      errorMessage: "Введите имя!",
+    },
+    {
+      rule: "minLength",
+      value: 2,
+      errorMessage: "Минимум 2 символа!",
     },
   ])
   .addField("#formTel", [
     {
-      rule: "required",
-      errorMessage: "Введите ваш телефон!",
+      validator: () => {
+        const digits = formTel.inputmask.unmaskedvalue();
+        return digits.length >= 10;
+      },
+      errorMessage: "Введите телефон!",
     },
   ])
-  .onSuccess((e) => {
+  .onSuccess(async (e) => {
     e.preventDefault();
+    const formData = new FormData(form);
+    let result = await sendDataToTg(formData);
+    if (result.success) {
+      goodAnswerPopup(
+        "<span>Ваша заяка <br />отправленна!</span> <span>Мы вам перезвоним</span>"
+      );
 
-    const formEl = e.target;
-    formEl.reset();
-    if (openedBtn) {
-      smartCloseOverlay(openedBtn);
+      form.reset();
+      if (openedModalBtn) {
+        smartCloseOverlay(openedModalBtn);
+      } else {
+        closeOverlay();
+      }
     } else {
-      closeOverlay();
+      badAnswerPopup("<span>Ошибка при отправке!</span>");
     }
-
-    // AJAX
-    togglePopup();
   });

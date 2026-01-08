@@ -1,11 +1,14 @@
 import dotenv from "dotenv";
 import TelegramBot from "node-telegram-bot-api";
+dotenv.config();
 
-const token = process.env.BOT_TOKEN;
-const bot = new TelegramBot(token, { polling: true });
-bot.setMyCommands([{ command: "/getchatid", description: "Получить ID чата" }]);
+const TOKEN = process.env.BOT_TOKEN;
+const bot = new TelegramBot(TOKEN, { polling: true });
+bot.setMyCommands([
+  { command: "getchatid", description: "Получить ID текущего чата" },
+]);
 
-bot.addListener("message", (msg) => {
+bot.on("message", (msg) => {
   if (msg.text === "/getchatid") {
     try {
       bot.sendMessage(msg.chat.id, `ID текущего чата: ${msg.chat.id}`);
@@ -14,3 +17,5 @@ bot.addListener("message", (msg) => {
     }
   }
 });
+
+export default bot;

@@ -1,27 +1,3 @@
-const basketInner = document.getElementById("basketInner");
-const basketClose = document.getElementById("basketClose");
-function openBasket() {
-  basketInner.setAttribute("aria-hidden", "false");
-  basketClose.setAttribute("aria-hidden", "false");
-  basketClose.disabled = false;
-}
-function closeBasket() {
-  basketInner.setAttribute("aria-hidden", "true");
-  basketClose.setAttribute("aria-hidden", "true");
-  basketClose.disabled = true;
-}
-
-const openBtns = document.querySelectorAll('[aria-controls="basketInner"]');
-if (openBtns.length > 0) {
-  openBtns.forEach((btn) => {
-    btn.addEventListener("click", openBasket);
-  });
-} else {
-  console.warn("Кнопки открытия корзины не найдены");
-}
-
-basketClose.addEventListener("click", closeBasket);
-
 class TableManager {
   constructor(columns, headerLabels) {
     this.columns = columns;
@@ -118,17 +94,24 @@ class TableManager {
     const tbody = this.element.tBodies[0];
     const row = this.createRow(data);
     tbody.appendChild(row);
-
-    this.updateNotify();
     return true;
   }
 
   removeRow(rowElement) {
     const tbody = this.element.tBodies[0];
-    if (tbody && rowElement.parentNode === tbody) {
-      tbody.removeChild(rowElement);
-      this.updateNotify();
+    if (tbody.rows.length === 1) {
+      this.dropTableAndData();
     }
+    if (tbody && rowElement.parentNode === tbody) {
+      const index = rowElement.sectionRowIndex;
+      tbody.removeChild(rowElement);
+
+      let basket = JSON.parse(localStorage.getItem("basket")) || [];
+      basket.splice(index, 1);
+      localStorage.setItem("basket", JSON.stringify(basket));
+    }
+
+    refreshNotify();
   }
 
   clearRows() {
@@ -137,37 +120,50 @@ class TableManager {
       tbody.innerHTML = "";
       this.updateNotify();
     }
+    localStorage.setItem("basket", JSON.stringify([]));
+
+    refreshNotify();
   }
 
-  updateNotify() {
-    const count = this.element?.tBodies[0]?.rows.length || 0;
-
-    if (count > 0) {
-      this.showNotify(count);
-    } else {
-      this.removeNotify();
+  dropTableAndData() {
+    if (this.element) {
+      this.element.remove();
+      this.element = null;
     }
+    localStorage.setItem("basket", JSON.stringify([]));
+    document.getElementById("tableWrapper").textContent =
+      "У вас пустая корзина((";
+
+    refreshNotify();
   }
+}
 
-  showNotify(count) {
-    const btns = document.querySelectorAll('[aria-controls="basketInner"]');
+const tableWrapper = document.getElementById("tableWrapper");
+let basketStorage = JSON.parse(localStorage.getItem("basket"));
+if (basketStorage && basketStorage.length) {
+  const columns = ["title", "type", "size", "color", "price", "quantity"];
+  const headers = {
+    title: "Продукция",
+    type: "Тип",
+    size: "Размер",
+    color: "Цвет",
+    price: "Цена",
+    quantity: "Количество",
+  };
 
-    btns.forEach((btn) => {
-      const existingNotify = btn.querySelector(".basket__button-notify");
+  const table = new TableManager(columns, headers);
+  table.render(tableWrapper);
 
-      if (existingNotify) {
-        existingNotify.textContent = count;
-      } else {
-        const notify = document.createElement("span");
-        notify.className = "basket__button-notify";
-        notify.textContent = count;
-        btn.appendChild(notify);
-      }
+  basketStorage.forEach((product) => {
+    table.addRow({
+      title: product.title,
+      type: product.type || "",
+      size: product.size || "",
+      color: product.color || "",
+      price: product.price,
+      quantity: product.quantity,
     });
-  }
-
-  removeNotify() {
-    const notifies = document.querySelectorAll(".basket__button-notify");
-    notifies.forEach((notify) => notify.remove());
-  }
+  });
+} else {
+  tableWrapper.textContent = "У вас пустая корзина((";
 }

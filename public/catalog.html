@@ -6,127 +6,16 @@
     <title>Товары</title>
     <link rel="stylesheet" href="/css/catalog.css" />
     <link rel="stylesheet" href="/css/normalize.css" />
-    <!-- <script src="https://api-maps.yandex.ru/v3/?apikey=c3c0cc1a-21be-44ca-9bb4-386e773db1a3Y&lang=ru_RU"></script> -->
   </head>
   <body>
-    <header class="header hidden-mobile">
-      <div class="header__inner container">
-        <address class="header__contacts">
-          <ul class="header__contacts-items">
-            <li class="header__contacts-item">
-              <a href="tel:+79780829838" class="header__contacts-phone link"
-                ><img
-                  src="/images/header/phone.svg"
-                  alt=""
-                  width="20px"
-                  height="20px"
-                  loading="lazy"
-                  role="presentation"
-                />
-                <span>+7 978 082-98-38</span></a
-              >
-              <a
-                class="header__contacts-address link"
-                href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/images/header/address.svg"
-                  alt=""
-                  width="20px"
-                  height="20px"
-                  loading="lazy"
-                  role="presentation"
-                /><span>г. Феодосия, Переулок Керченский 4 В</span>
-              </a>
-            </li>
-            <li class="header__contacts-item">
-              <a
-                href="mailto:uniwersalstroj2008@mail.ru"
-                class="header__contacts-mail"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/images/header/mail.svg"
-                  alt="Mail"
-                  width="30px"
-                  height="30px"
-                  loading="lazy"
-                />
-              </a>
-              <a
-                href="https://vk.com/id516711688"
-                class="header__contacts-vk"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/images/header/vk logo.svg"
-                  alt="ВКОНТАКТЕ"
-                  width="30px"
-                  height="30px"
-                  loading="lazy"
-                />
-              </a>
-              <a
-                href="https://wa.me/79780829838"
-                class="header__contacts-wa"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/images/header/whatsapp logo.svg"
-                  alt="WhatsApp"
-                  width="30px"
-                  height="30px"
-                  loading="lazy"
-                />
-              </a>
-            </li>
-          </ul>
-        </address>
-        <div class="header__wrapper">
-          <div class="header__logo">
-            <img
-              src="/images/header/universalstroj logo.jpeg"
-              alt="УНИВЕРСАЛСТРОЙ"
-              class="header__logo-img"
-              loading="lazy"
-              width="150"
-            />
-          </div>
-          <nav class="header__nav">
-            <ul class="header__nav-items">
-              <li class="header__nav-item">
-                <a href="/" class="header__nav-link link">Главная</a>
-              </li>
-              <li class="header__nav-item">
-                <a href="/gallery.html" class="header__nav-link link"
-                  >Галлерея</a
-                >
-              </li>
-              <li class="header__nav-item">
-                <a href="/catalog.html" class="header__nav-link link">Товары</a>
-              </li>
-              <li class="header__nav-item">
-                <a href="/contacts.html" class="header__nav-link link"
-                  >Контакты</a
-                >
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <!--#include virtual="/includes/header.html" -->
     <main>
       <section class="catalog">
         <div class="catalog__inner container">
           <h1 class="catalog__title title-big">Наши товары</h1>
           <ul class="catalog__items">
             <li class="catalog__item">
-              <a href="/catalogCard.html" class="catalog__item-link">
+              <a href="/catalog/card" class="catalog__item-link">
                 <article class="catalog__item-product product">
                   <div class="product__img">
                     <img
@@ -160,7 +49,7 @@
               </a>
             </li>
             <li class="catalog__item">
-              <a href="/catalogCard.html" class="catalog__item-link">
+              <a href="/catalog/card" class="catalog__item-link">
                 <article class="catalog__item-product product">
                   <div class="product__img">
                     <img
@@ -190,7 +79,7 @@
               </a>
             </li>
             <li class="catalog__item">
-              <a href="/catalogCard.html" class="catalog__item-link">
+              <a href="/catalog/card" class="catalog__item-link">
                 <article class="catalog__item-product product">
                   <div class="product__img">
                     <img
@@ -222,7 +111,7 @@
               </a>
             </li>
             <li class="catalog__item">
-              <a href="/catalogCard.html" class="catalog__item-link">
+              <a href="/catalog/card" class="catalog__item-link">
                 <article class="catalog__item-product product">
                   <div class="product__img">
                     <img
@@ -253,7 +142,7 @@
               </a>
             </li>
             <li class="catalog__item">
-              <a href="/catalogCard.html" class="catalog__item-link">
+              <a href="/catalog/card" class="catalog__item-link">
                 <article class="catalog__item-product product">
                   <div class="product__img">
                     <img
@@ -284,7 +173,7 @@
               </a>
             </li>
             <li class="catalog__item">
-              <a href="/catalogCard.html" class="catalog__item-link">
+              <a href="/catalog/card" class="catalog__item-link">
                 <article class="catalog__item-product product">
                   <div class="product__img">
                     <img
@@ -351,198 +240,7 @@
         </div>
       </section>
     </main>
-    <footer class="footer">
-      <div class="footer__inner container">
-        <h2 class="visually-hidden">Подвал сайта</h2>
-        <address class="footer__contacts">
-          <ul class="footer__contacts-items">
-            <li class="footer__contacts-item">
-              <a href="tel:+79780829838" class="footer__contacts-link">
-                <div class="footer__contacts-img">
-                  <img
-                    src="/images/footer/phone.svg"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </div>
-                <span>+7 978 082-98-38</span>
-              </a>
-            </li>
-            <li class="footer__contacts-item">
-              <a
-                href="mailto:uniwersalstroj2008@mail.ru"
-                class="footer__contacts-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div class="footer__contacts-img">
-                  <img
-                    src="/images/footer/mail.svg"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </div>
-                <span>uniwersalstroj2008@mail.ru</span>
-              </a>
-            </li>
-            <li class="footer__contacts-item">
-              <a
-                class="footer__contacts-link"
-                href="https://yandex.ru/maps/?text=Керченский%20пер.%2C%204%2C%20Феодосия"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div class="footer__contacts-img">
-                  <img
-                    src="/images/footer/address.svg"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </div>
-                <span>г. Феодосия, Переулок Керченский 4 В</span>
-              </a>
-            </li>
-          </ul>
-        </address>
-        <div class="footer__body">
-          <nav class="footer__nav">
-            <ul class="footer__nav-items">
-              <li class="footer__nav-item">
-                <a href="/" class="footer__nav-link link">Главная</a>
-              </li>
-              <li class="footer__nav-item">
-                <a href="/gallery.html" class="footer__nav-link link"
-                  >Галлерея</a
-                >
-              </li>
-              <li class="footer__nav-item">
-                <a href="/catalog.html" class="footer__nav-link link">Товары</a>
-              </li>
-              <li class="footer__nav-item">
-                <a href="/contacts.html" class="footer__nav-link link"
-                  >Контакты</a
-                >
-              </li>
-            </ul>
-          </nav>
-          <div class="footer__yaCard">
-            <div class="footer__yaCard-card"></div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- <section
-      class="overlay"
-      id="overlay"
-      aria-modal="true"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="overlay__inner container">
-        <article class="overlay__card card" id="card">
-          <div class="card__close" id="cardClose"></div>
-          <div class="card__img">
-            <img src="/images/catalog/plitka.jpg" alt="" id="cardImg" />
-          </div>
-          <div class="card__body">
-            <h2 class="card__title">Тротуарная плитка</h2>
-            <div class="card__price">580&nbsp;₽</div>
-            <div class="card__type">
-              <ul class="card__type-items">
-                <li class="card__type-item">
-                  <input type="radio" name="old" id="" />
-                </li>
-                <li class="card__type-item">
-                  <input type="radio" name="kat" id="" />
-                </li>
-                <li class="card__type-item">
-                  <input type="radio" name="sota" id="" />
-                </li>
-              </ul>
-            </div>
-            <div class="card__size">
-              <ul class="card__size-items">
-                <li class="card__size-item">
-                  <input type="radio" name="25m" />
-                </li>
-                <li class="card__size-item">
-                  <input type="radio" name="40m" />
-                </li>
-                <li class="card__size-item">
-                  <input type="radio" name="60m" />
-                </li>
-              </ul>
-            </div>
-            <p class="card__description">
-              Производим тротуарную плитку кирпич, старый город, катушка, сота.
-              Толщина 25 мм, 40 мм, 60 мм. Цвета серый, коричневый, красный,
-              чёрный, оливковый, белый, жёлтый, оранжевый
-            </p>
-            <div class="card__colors"></div>
-            <div class="card__stay">
-              <button type="button" class="card__button button">
-                Добавить к заявке
-              </button>
-              <div class="card__actions">
-                <button class="btn-minus">−</button>
-                <input type="number" class="product-count" value="1" min="1" />
-                <button class="btn-plus">+</button>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section> -->
-    <section class="burger" id="burger">
-      <button
-        type="button"
-        id="burgerBtn"
-        class="burger__button"
-        role="button"
-        aria-expanded="false"
-        aria-label="Открыть бургер меню"
-      ></button>
-      <div class="burger__inner" id="burgerInner">
-        <div class="burger__close" id="burgerClose"></div>
-        <div class="burger__logo">
-          <img
-            src="/images/header/universalstroj logo.jpeg"
-            alt="УНИВЕРСАЛСТРОЙ"
-            width="250"
-            loading="lazy"
-          />
-        </div>
-        <nav class="burger__nav">
-          <ul class="burger__nav-items">
-            <li class="burger__nav-item">
-              <a href="/" class="burger__nav-link">Главная</a>
-            </li>
-            <li class="burger__nav-item">
-              <a href="/gallery.html" class="burger__nav-link">Галлерея</a>
-            </li>
-            <li class="burger__nav-item">
-              <a href="/catalog.html" class="burger__nav-link">Товары</a>
-            </li>
-            <li class="burger__nav-item">
-              <a href="/contacts.html" class="burger__nav-link">Контакты</a>
-            </li>
-          </ul>
-        </nav>
-        <address class="burger__contacts">
-          <div class="burger__contacts-time">Пн-Сб: 07:30–15:00</div>
-          <div class="burger__contacts-phone">+7 978 082-98-38</div>
-        </address>
-      </div>
-    </section>
-    <section class="popup" id="popup" aria-hidden="true">
-      <div class="popup__close" id="popupClose"></div>
-      <div class="popup__inner" id="popupInner">
-        <span>Ваша заяка <br />отправленна!</span>
-        <span>Мы вам перезвоним</span>
-      </div>
-      <div class="popup__timer"></div>
-    </section>
-    <script src="/js/burger.js"></script>
-    <!-- <script src="/js/catalog/catalog.js"></script> -->
+    <!--#include virtual="/includes/footer.html" -->
+    <!--#include virtual="/includes/burger.html" -->
   </body>
 </html>

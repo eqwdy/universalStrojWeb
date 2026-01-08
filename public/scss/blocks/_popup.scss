@@ -66,8 +66,11 @@
   }
 
   &__timer {
+    --color-popup-timer-green: #4caf50;
+    --color-popup-timer-red: #f44336;
+
     height: 4px;
-    background: #ccc;
+    background-color: #ccc;
     margin-top: 10px;
     border-radius: 2px;
   }
@@ -77,11 +80,35 @@
   }
 
   @keyframes timerBar {
-    from {
+    0% {
       transform: scaleX(1);
     }
-    to {
+    100% {
       transform: scaleX(0);
+    }
+  }
+
+  &.shake {
+    animation: shake 0.3s;
+  }
+  @keyframes shake {
+    0% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-5px, 2px);
+    }
+    40% {
+      transform: translate(5px, -2px);
+    }
+    60% {
+      transform: translate(-5px, -2px);
+    }
+    80% {
+      transform: translate(5px, 2px);
+    }
+    100% {
+      transform: translate(0);
     }
   }
 }

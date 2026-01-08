@@ -155,7 +155,7 @@ class ProductCard {
         if (this.validateRadio()) {
           this.handleAddToCart();
         } else {
-          showCustomPopup("Выберите значения!");
+          badAnswerPopup("Выберите значение!");
         }
       },
     });
@@ -350,11 +350,11 @@ class ProductCard {
 
   validateRadio() {
     let result = false;
-    const radioGroups = document.querySelectorAll(".card__radio-group");
+    const radioGroups = document.querySelectorAll('[role="radiogroup"]');
     let radioGroupCount = 0;
 
     radioGroups.forEach((group) => {
-      const radioBtns = group.querySelectorAll(".card__radio-button");
+      const radioBtns = group.querySelectorAll('[role="radio"]');
       radioBtns.forEach((btn) => {
         if (btn.getAttribute("aria-checked") === "true") {
           radioGroupCount += 1;
@@ -374,27 +374,39 @@ class ProductCard {
     const price = parseInt(this.elements.price.getAttribute("data-value"), 10);
     const totalPrice = price * quantity;
 
+    let typeEl = null;
+    if (this.data.types.length) {
+      const typeGroup = document.querySelector('[aria-labelledby="typeGroup"]');
+      typeEl = typeGroup?.querySelector('[aria-checked="true"]');
+    }
+    let sizeEl = null;
+    if (this.data.sizes.length) {
+      const sizeGroup = document.querySelector('[aria-labelledby="sizeGroup"]');
+      sizeEl = sizeGroup?.querySelector('[aria-checked="true"]');
+    }
+    let colorEl = null;
+    if (this.data.colors.length) {
+      const colorGroup = document.querySelector(
+        '[aria-labelledby="colorGroup"]'
+      );
+      colorEl = colorGroup?.querySelector('[aria-checked="true"]');
+    }
+
     const rowData = {
-      product: this.data.title,
+      title: this.data.title,
       price: `${totalPrice}\u00A0₽`,
+      type: typeEl?.textContent || "",
+      size: sizeEl?.textContent || "",
+      color: colorEl?.getAttribute("aria-label") || "",
       quantity: `${quantity}\u00A0м²`,
     };
 
-    if (!window.tableManager) {
-      window.tableManager = new TableManager(["product", "price", "quantity"], {
-        product: "Название товара",
-        price: "Цена",
-        quantity: "Количество",
-      });
+    let basket = JSON.parse(localStorage.getItem("basket")) || [];
+    basket.push(rowData);
+    localStorage.setItem("basket", JSON.stringify(basket));
 
-      const basketInner = document.getElementById("basketInner");
-      if (basketInner) {
-        window.tableManager.render(basketInner);
-      }
-    }
-
-    window.tableManager.addRow(rowData);
-    showCustomPopup("Добавлено в корзину!");
+    goodAnswerPopup("Добавлено в корзину!");
+    refreshNotify();
   }
 }
 
@@ -491,9 +503,21 @@ function createRoundesCard() {
   return productData;
 }
 
-let productData = createRoundesCard();
+let productData = createPlitkaCard();
 const productCard = new ProductCard(productData);
 const container = document.getElementById("cardContainer");
 if (container) {
   productCard.render(container);
 }
+
+// CREATE TABLE product_cards (
+//     id SERIAL PRIMARY KEY,              -- уникальный идентификатор карточки
+//     name VARCHAR(255) NOT NULL,         -- название товара (обязательное)
+//     description TEXT,                   -- описание (необязательное)
+//     price NUMERIC(10,2) NOT NULL,       -- цена (обязательное)
+
+//     -- необязательные поля
+//     type VARCHAR(100),                  -- тип товара
+//     size VARCHAR(50),                   -- размер
+//     color VARCHAR(50),                  -- цвет
+// );

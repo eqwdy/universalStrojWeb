@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   nginx:
     image: nginx:latest
@@ -13,11 +11,10 @@ services:
   node:
     build:
       context: .
-      dockerfile: DockerFile
+      dockerfile: dockerfile.node
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app/
-      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     networks:

@@ -1,0 +1,50 @@
+<script src="/js/libs/justValidate.min.js"></script>
+<script src="/js/libs/inputmask.min.js"></script>
+<script src="/js/sendData.js"></script>
+<section
+  class="overlay"
+  id="overlay"
+  aria-modal="true"
+  role="dialog"
+  aria-hidden="true"
+>
+  <form class="overlay__form form" id="form" tabindex="-1">
+    <h2 class="form__title">Оставьте заявку через форму</h2>
+    <button class="form__close" id="formClose" type="button"></button>
+    <ul class="form__items">
+      <li class="form__item">
+        <input
+          type="text"
+          name="formName"
+          id="formName"
+          autocomplete="name"
+          class="form__input"
+          placeholder=" "
+        />
+        <label for="formName" class="form__label">Имя*</label>
+      </li>
+      <li class="form__item">
+        <input
+          type="tel"
+          name="formTel"
+          id="formTel"
+          autocomplete="tel"
+          class="form__input"
+          placeholder=" "
+        />
+        <label for="formTel" class="form__label">Телефон*</label>
+      </li>
+      <li class="form__item">
+        <textarea
+          name="formMessage"
+          id="formMessage"
+          class="form__textarea form__input"
+          placeholder=" "
+        ></textarea>
+        <label for="formMessage" class="form__label">Сообщение</label>
+      </li>
+    </ul>
+    <button type="submit" class="form__button button">Отправить заявку</button>
+  </form>
+</section>
+<script src="js/modal.js"></script>

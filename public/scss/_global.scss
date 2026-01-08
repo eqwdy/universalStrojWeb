@@ -53,7 +53,7 @@
 
 .title-big {
   @include fluid-text(60, 40);
-  line-height: 1;
+  line-height: 1.2;
 
   @media (max-width: 610px) {
     font-size: 35px;
@@ -61,7 +61,7 @@
 }
 .title-medium {
   @include fluid-text(40, 30);
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .button {
@@ -101,7 +101,7 @@
     --button-arrow-width: 15px;
     position: relative;
     padding-right: calc(
-      var(--button-padding-right) + var(--button-arrow-width) + 10px
+      var(--button-padding-inline) + var(--button-arrow-width) + 10px
     );
 
     &::after {

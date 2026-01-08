@@ -1,145 +1,17 @@
 .basket {
-  &__inner {
-    position: fixed;
-    top: 0;
-    right: 0;
-    max-width: 500px;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-    z-index: 9999;
-    background-color: white;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    padding: 10px 5px;
-    padding-top: 40px;
-    font-size: 1.125rem;
-    color: black;
-    transform: translateX(100%);
-    transition: var(--transition-button);
-
-    &[aria-hidden="false"] {
-      transform: translateX(0);
-    }
-
-    @include mobile {
-      max-width: 300px;
-      width: 100%;
-    }
-
-    &::-webkit-scrollbar {
-      width: 0 !important;
-      height: 0 !important;
-    }
-  }
-
-  &__button {
-    position: fixed;
-    top: calc(2vh + 40px + 10px);
-    right: 2vw;
-    width: 40px;
-    aspect-ratio: 1;
-    background-color: rgba(48, 48, 48, 0.6);
-    border: none;
-    border-radius: 5px;
-    transition: 0.1s ease background-color;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @include mobile-above {
-      display: none;
-    }
-
-    & > svg {
-      color: white;
-    }
-
-    &:active {
-      background-color: var(--color-white-gray);
-    }
-
-    &-notify {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      background: #f55123;
-      border-radius: 50%;
-      max-width: 26px;
-      min-width: 16px;
-      max-height: 26px;
-      min-height: 16px;
-      aspect-ratio: 1;
-      padding: 5px;
-      font-size: 10px;
-      position: absolute;
-      top: -6px;
-      right: -8px;
-    }
-  }
-
-  &__close {
-    position: fixed;
-    top: 2px;
-    right: 5px;
-    width: 40px;
-    aspect-ratio: 1;
-    border: none;
-    background: none;
-    padding: 0;
-    z-index: 9999999;
-    opacity: 0;
-    pointer-events: none;
-    transition: var(--transition-button);
-
-    &[aria-hidden="false"] {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    &::after,
-    &::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 60%;
-      height: 2px;
-      background-color: black;
-      transition: 0.1s ease;
-    }
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-    &::before {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-
-    @include hover {
-      cursor: pointer;
-
-      &::after,
-      &::before {
-        opacity: 0.6;
-      }
-    }
+  &__title {
+    margin-bottom: 20px;
   }
 }
 
 .table {
-  width: 100%;
   border-collapse: collapse;
-  table-layout: auto; // Гибкое распределение колонок
+  table-layout: auto;
   font-size: 1rem;
   line-height: 1.5;
 
-  &__wrapper {
+  &-wrapper {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 
   &__title {
@@ -158,6 +30,7 @@
       text-align: left;
       border-bottom: 1px solid #eee;
       vertical-align: middle;
+      white-space: nowrap;
     }
 
     th {
@@ -176,6 +49,7 @@
       padding: 0;
       width: 1%;
       white-space: nowrap;
+      border: none;
     }
   }
 
@@ -208,10 +82,7 @@
     }
   }
 
-  // Адаптация для мобильных
   @include mobile {
-    font-size: 0.9rem;
-
     &__title {
       font-size: 1.125rem;
       margin-bottom: 0.75rem;
@@ -223,7 +94,6 @@
         padding: 10px 12px;
       }
 
-      // На узких экранах делаем последнюю колонку чуть шире
       td:last-child,
       th:last-child {
         width: auto;
