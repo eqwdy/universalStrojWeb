@@ -4,6 +4,38 @@
   }
 }
 
+.fallback {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  &__img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    justify-self: end;
+  }
+
+  &__title {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    font-size: 1.125rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    background-color: #d98c4d;
+
+    @include hover {
+      background-color: #db9861;
+    }
+  }
+}
+
 .table {
   border-collapse: collapse;
   table-layout: auto;
@@ -12,6 +44,7 @@
 
   &-wrapper {
     overflow-x: auto;
+    margin-bottom: 20px;
   }
 
   &__title {

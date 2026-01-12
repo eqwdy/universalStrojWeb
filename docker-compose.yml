@@ -2,23 +2,29 @@ services:
   nginx:
     image: nginx:latest
     volumes:
+      - ./server/static:/var/www/static
       - ./public:/var/www
       - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "80:80"
+    depends_on:
+      - node
     networks:
       - appnet
+
   node:
     build:
       context: .
       dockerfile: dockerfile.node
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app/
+      - ./server:/usr/src/app
     ports:
       - "3000:3000"
     networks:
       - appnet
+    depends_on:
+      - db
     healthcheck:
       test:
         [
@@ -30,6 +36,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+
+  db:
+    image: postgres:15
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+
+volumes:
+  pgdata:
 
 networks:
   appnet:

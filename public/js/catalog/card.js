@@ -394,15 +394,37 @@ class ProductCard {
 
     const rowData = {
       title: this.data.title,
-      price: `${totalPrice}\u00A0₽`,
+      //   price: `${totalPrice}\u00A0₽`,
+      price: totalPrice,
       type: typeEl?.textContent || "",
       size: sizeEl?.textContent || "",
       color: colorEl?.getAttribute("aria-label") || "",
-      quantity: `${quantity}\u00A0м²`,
+      //   quantity: `${quantity}\u00A0м²`,
+      quantity: quantity,
     };
 
     let basket = JSON.parse(localStorage.getItem("basket")) || [];
-    basket.push(rowData);
+
+    // basket.push(rowData);
+    let found = false;
+    for (let data of basket) {
+      if (
+        data.title === rowData.title &&
+        data.type === rowData.type &&
+        data.size === rowData.size &&
+        data.color === rowData.color
+      ) {
+        data.quantity += rowData.quantity;
+        data.price += rowData.price;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      basket.push(rowData);
+    }
+
     localStorage.setItem("basket", JSON.stringify(basket));
 
     goodAnswerPopup("Добавлено в корзину!");
@@ -509,15 +531,3 @@ const container = document.getElementById("cardContainer");
 if (container) {
   productCard.render(container);
 }
-
-// CREATE TABLE product_cards (
-//     id SERIAL PRIMARY KEY,              -- уникальный идентификатор карточки
-//     name VARCHAR(255) NOT NULL,         -- название товара (обязательное)
-//     description TEXT,                   -- описание (необязательное)
-//     price NUMERIC(10,2) NOT NULL,       -- цена (обязательное)
-
-//     -- необязательные поля
-//     type VARCHAR(100),                  -- тип товара
-//     size VARCHAR(50),                   -- размер
-//     color VARCHAR(50),                  -- цвет
-// );

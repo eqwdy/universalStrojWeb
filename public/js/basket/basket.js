@@ -78,7 +78,7 @@ class TableManager {
         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
       </svg>`;
 
-    deleteBtn.addEventListener("click", () => this.removeRow(row));
+    deleteBtn.addEventListener("click", () => this.removeRowAndData(row));
     deleteCell.appendChild(deleteBtn);
     row.appendChild(deleteCell);
 
@@ -97,11 +97,13 @@ class TableManager {
     return true;
   }
 
-  removeRow(rowElement) {
+  removeRowAndData(rowElement) {
     const tbody = this.element.tBodies[0];
+
     if (tbody.rows.length === 1) {
       this.dropTableAndData();
     }
+
     if (tbody && rowElement.parentNode === tbody) {
       const index = rowElement.sectionRowIndex;
       tbody.removeChild(rowElement);
@@ -118,9 +120,7 @@ class TableManager {
     const tbody = this.element?.tBodies[0];
     if (tbody) {
       tbody.innerHTML = "";
-      this.updateNotify();
     }
-    localStorage.setItem("basket", JSON.stringify([]));
 
     refreshNotify();
   }
@@ -130,16 +130,27 @@ class TableManager {
       this.element.remove();
       this.element = null;
     }
-    localStorage.setItem("basket", JSON.stringify([]));
-    document.getElementById("tableWrapper").textContent =
-      "У вас пустая корзина((";
 
+    localStorage.setItem("basket", JSON.stringify([]));
+
+    const basketContainer = document
+      .getElementById("basket")
+      .querySelector(".container");
+    basketContainer.appendChild(fallback);
+
+    document.querySelectorAll(".button-request")?.forEach((btn) => {
+      btn.classList.add("visually-hidden");
+    });
     refreshNotify();
   }
 }
 
 const tableWrapper = document.getElementById("tableWrapper");
-let basketStorage = JSON.parse(localStorage.getItem("basket"));
+const fallback = document.getElementById("fallback");
+fallback.remove();
+
+const basketStorage = JSON.parse(localStorage.getItem("basket"));
+
 if (basketStorage && basketStorage.length) {
   const columns = ["title", "type", "size", "color", "price", "quantity"];
   const headers = {
@@ -160,10 +171,28 @@ if (basketStorage && basketStorage.length) {
       type: product.type || "",
       size: product.size || "",
       color: product.color || "",
-      price: product.price,
-      quantity: product.quantity,
+      price: `${product.price}\u00A0₽`,
+      quantity: `${product.quantity}\u00A0м²`,
     });
   });
+
+  fallback.remove();
+  const basketButton = document.querySelector(".basket__button");
+  basketButton.classList.remove("visually-hidden");
 } else {
-  tableWrapper.textContent = "У вас пустая корзина((";
+  document
+    .getElementById("basket")
+    .querySelector(".container")
+    .appendChild(fallback);
+
+  const basketButton = document.querySelector(".basket__button");
+  basketButton.classList.add("visually-hidden");
+}
+
+function renderFallback(container) {
+  const fallback = document.createElement("article");
+  fallback.classList.add("fallback");
+  fallback.id = "fallback";
+
+  const wrapper = document.createElement("div");
 }

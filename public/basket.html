@@ -6,22 +6,100 @@
     <title>Корзина</title>
     <link rel="stylesheet" href="/css/basket.css" />
     <link rel="stylesheet" href="/css/normalize.css" />
+    <script src="/js/libs/justValidate.min.js"></script>
+    <script src="/js/libs/inputmask.min.js"></script>
     <script src="/js/sendData.js"></script>
   </head>
   <body>
     <!--#include virtual="/includes/header.html" -->
     <main>
-      <section class="basket">
+      <section class="basket" id="basket">
         <div class="basket__inner container">
-          <h1 class="basket__title title-big">Корзина</h1>
+          <h1 class="basket__title title-big visually-hidden">Корзина</h1>
           <div class="table-wrapper" id="tableWrapper"></div>
+          <button
+            type="button"
+            class="basket__button button button-request visually-hidden"
+            aria-expanded="false"
+            aria-controls="overlay"
+            aria-label="Открыть модальное окно с формой"
+          >
+            Оставить заявку
+          </button>
+          <article class="fallback" id="fallback">
+            <div class="fallback__body">
+              <h2 class="fallback__title">Ваша корзина пока пуста</h2>
+              <p class="fallback__description">
+                Добавьте товары, чтобы оформить заказ
+              </p>
+              <a href="/catalog">
+                <button
+                  type="button"
+                  class="fallback__button button button-arrow"
+                >
+                  Перейти в каталог
+                </button>
+              </a>
+            </div>
+            <div class="fallback__img">
+              <img src="/images/basket/people with basket.png" alt="" />
+            </div>
+          </article>
         </div>
       </section>
     </main>
     <!--#include virtual="/includes/footer.html" -->
     <!--#include virtual="/includes/popup.html" -->
     <!--#include virtual="/includes/burger.html" -->
-    <!--#include virtual="/includes/modal.html" -->
-    <script src="/js/basket.js" defer></script>
+    <section
+      class="overlay"
+      id="overlay"
+      aria-modal="true"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <form class="overlay__form form" id="form" tabindex="-1">
+        <h2 class="form__title">Оставьте заявку через форму</h2>
+        <button class="form__close" id="formClose" type="button"></button>
+        <ul class="form__items">
+          <li class="form__item">
+            <input
+              type="text"
+              name="formName"
+              id="formName"
+              autocomplete="name"
+              class="form__input"
+              placeholder=" "
+            />
+            <label for="formName" class="form__label">Имя*</label>
+          </li>
+          <li class="form__item">
+            <input
+              type="tel"
+              name="formTel"
+              id="formTel"
+              autocomplete="tel"
+              class="form__input"
+              placeholder=" "
+            />
+            <label for="formTel" class="form__label">Телефон*</label>
+          </li>
+          <li class="form__item">
+            <textarea
+              name="formMessage"
+              id="formMessage"
+              class="form__textarea form__input"
+              placeholder=" "
+            ></textarea>
+            <label for="formMessage" class="form__label">Сообщение</label>
+          </li>
+        </ul>
+        <button type="submit" class="form__button button">
+          Отправить заявку
+        </button>
+      </form>
+    </section>
+    <script src="/js/basket/basket.js" defer></script>
+    <script src="js/basket/modal.js" defer></script>
   </body>
 </html>

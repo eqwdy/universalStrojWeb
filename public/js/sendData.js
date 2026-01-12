@@ -1,13 +1,9 @@
 async function sendDataToTg(formData) {
   try {
-    const response = await fetch(
-      //   "https://xn----82-53dkc5deutityk0kl.xn--p1ai/botApi",
-      "http://localhost/botApi",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const response = await fetch("http://localhost/api/bot/sendData", {
+      method: "POST",
+      body: formData,
+    });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));

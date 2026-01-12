@@ -65,10 +65,13 @@
     width: 100%;
   }
 }
+.link-reset {
+  text-decoration: none;
+  color: inherit;
+}
 
 .title-big {
   font-size: clamp(40px, 4.1666666667vw, 60px);
-  line-height: 1.2;
 }
 @media (max-width: 610px) {
   .title-big {
@@ -78,7 +81,6 @@
 
 .title-medium {
   font-size: clamp(30px, 2.7777777778vw, 40px);
-  line-height: 1.2;
 }
 
 .button {
@@ -239,8 +241,8 @@
 }
 .popup__close {
   position: absolute;
-  top: 10%;
-  right: 5%;
+  top: 10px;
+  right: 8px;
   width: 30px;
   aspect-ratio: 1;
   --close-color: black;
@@ -897,9 +899,6 @@
   max-width: 739px;
   color: white;
   text-align: center;
-}
-.hero__title {
-  line-height: 1.2;
 }
 @media (max-width: 610px) {
   .hero__title {

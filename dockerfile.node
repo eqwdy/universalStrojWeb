@@ -1,9 +1,9 @@
 FROM node:20-alpine
 
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY server/package*.json ./
 RUN npm install --production
-COPY . .
-EXPOSE 3000
+COPY server .
 
-CMD ["node", "nodeJs/app.js"]
+EXPOSE 3000
+CMD ["node", "app.js"]
