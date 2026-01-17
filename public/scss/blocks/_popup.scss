@@ -10,6 +10,7 @@
   border-radius: 20px;
   transform: translate(-100%) scale(0.5);
   transition: var(--transition-button);
+  z-index: 99;
 
   &[aria-hidden="false"] {
     display: block;

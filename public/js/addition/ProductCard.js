@@ -1,7 +1,7 @@
-class ProductCard {
+export class ProductCard {
   constructor(options) {
     this.data = {
-      imgSrc: options.imgSrc,
+      imgSrc: options.img,
       title: options.title,
       price: options.price,
       types: options.types || [],
@@ -78,7 +78,7 @@ class ProductCard {
     wrapper.classList.add("card__img");
 
     const img = document.createElement("img");
-    img.src = this.data.imgSrc;
+    img.src = `/static/${this.data.imgSrc}`;
     img.alt = this.data.title || "Изображение товара";
 
     wrapper.appendChild(img);
@@ -430,104 +430,4 @@ class ProductCard {
     goodAnswerPopup("Добавлено в корзину!");
     refreshNotify();
   }
-}
-
-function createPlitkaCard() {
-  const productData = {
-    imgSrc: "/images/catalog/plitka.jpg",
-    title: "Тротуарная плитка",
-    price: 580,
-    types: [
-      { value: "old-town", text: "Старый город" },
-      { value: "coil", text: "Катушка" },
-      { value: "sota", text: "Сота" },
-    ],
-    sizes: [
-      { value: "25mm", text: "25мм" },
-      { value: "40mm", text: "40мм" },
-      { value: "60mm", text: "60мм" },
-    ],
-    colors: [
-      { value: "black", text: "Чёрный" },
-      { value: "gray", text: "Серый" },
-      { value: "white", text: "Белый" },
-      { value: "brown", text: "Коричневый" },
-      { value: "red", text: "Красный" },
-      { value: "yellow", text: "Жёлтый" },
-      { value: "orange", text: "Оранжевый" },
-      { value: "olive", text: "Оливковый" },
-    ],
-    description:
-      "Производим тротуарную плитку: кирпич, старый город, катушка, сота. Толщина 25 мм, 40 мм, 60 мм. Цвета: серый, коричневый, красный, чёрный, оливковый, белый, жёлтый, оранжевый.",
-  };
-  return productData;
-}
-function createSpheresCard() {
-  const productData = {
-    imgSrc: "/images/catalog/polySpheres.jpg",
-    title: "Бетонные полусферы",
-    price: 850,
-    sizes: [{ value: "480x250", text: "480x250" }],
-    description:
-      "Производим бетонные полусферы диаметром 480 мм, высотой 250 мм, вес 65 кг.",
-  };
-  return productData;
-}
-function createPorebrikCard() {
-  const productData = {
-    imgSrc: "/images/catalog/porebrik.jpg",
-    title: "Поребрик",
-    price: 120,
-    sizes: [{ value: "470х60х200", text: "470х60х200" }],
-    colors: [
-      { value: "gray", text: "Серый" },
-      { value: "brown", text: "Коричневый" },
-      { value: "red", text: "Красный" },
-    ],
-    description:
-      "Производим поребрики 470х60х200 мм, серого, красного и коричневого цветов.",
-  };
-  return productData;
-}
-function createBorduresCard() {
-  const productData = {
-    imgSrc: "/images/catalog/bordures.jpg",
-    title: "Дорожные бордюры",
-    price: 500,
-    description: "Производим и устанавливаем дорожные бордюры.",
-  };
-
-  return productData;
-}
-function createFbsCard() {
-  const productData = {
-    imgSrc: "/images/catalog/blocks.jpg",
-    title: "Блоки ФБС",
-    price: 2800,
-    sizes: [{ value: "individual", text: "Индивидуальный" }],
-    description:
-      "Производим блоки ФБС 24.3.6, 24.4.6, половинки, а также можем изготовить блоки под индивидуальный размер",
-  };
-  return productData;
-}
-function createRoundesCard() {
-  const productData = {
-    imgSrc: "/images/index/catalog/roundes.jpeg",
-    title: "Бетонные кольца и крышки",
-    price: 3350,
-    sizes: [
-      { value: "1m", text: "Диаметр 1м" },
-      { value: "1.5m", text: "Диаметр 1.5м" },
-    ],
-    description:
-      "Производим бетонные кольца диаметром 1 и 1,5 метра, высотой 0,3, 0,6, 0,9 и 1 метр. Так же делаем крышки и днища к ним",
-  };
-  return productData;
-}
-
-let productData = createPlitkaCard();
-const productCard = new ProductCard(productData);
-const container = document.getElementById("cardContainer");
-if (container) {
-  productCard.render(container);
 }

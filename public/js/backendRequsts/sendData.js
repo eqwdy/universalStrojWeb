@@ -6,9 +6,8 @@ async function sendDataToTg(formData) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(
-        `${response.status}: ${errorData.errorType || "Неизвестный сбой"}`
+      return new Error(
+        `${response.status}: ${response.statusText || "Неизвестный сбой"}`
       );
     }
 

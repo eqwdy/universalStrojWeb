@@ -139,38 +139,43 @@ validator
       formData.append("products", localStorage.getItem("basket"));
     }
 
-    let result = await sendDataToTg(formData);
+    try {
+      let result = await sendDataToTg(formData);
 
-    if (result.success) {
-      form.reset();
-      if (openedModalBtn) {
-        smartCloseOverlay(openedModalBtn);
+      if (result.success) {
+        form.reset();
+        if (openedModalBtn) {
+          smartCloseOverlay(openedModalBtn);
+        } else {
+          closeOverlay();
+        }
+
+        if (basketStorage && basketStorage.length) {
+          document.querySelector(".table").remove();
+          localStorage.setItem("basket", "[]");
+          refreshNotify();
+
+          const basketButton = document.querySelector(".basket__button");
+          basketButton.classList.add("visually-hidden");
+
+          document
+            .getElementById("basket")
+            .querySelector(".container")
+            .appendChild(fallback);
+
+          goodAnswerPopup(
+            "<span>Ваша заяка с товарами<br />отправленна!</span> <span>Мы вам перезвоним</span>"
+          );
+        } else {
+          goodAnswerPopup(
+            "<span>Ваша заяка <br />отправленна!</span> <span>Мы вам перезвоним</span>"
+          );
+        }
       } else {
-        closeOverlay();
+        badAnswerPopup("<span>Ошибка при отправке!</span>");
       }
-
-      if (basketStorage && basketStorage.length) {
-        document.querySelector(".table").remove();
-        localStorage.setItem("basket", "[]");
-        refreshNotify();
-
-        const basketButton = document.querySelector(".basket__button");
-        basketButton.classList.add("visually-hidden");
-
-        document
-          .getElementById("basket")
-          .querySelector(".container")
-          .appendChild(fallback);
-
-        goodAnswerPopup(
-          "<span>Ваша заяка с товарами<br />отправленна!</span> <span>Мы вам перезвоним</span>"
-        );
-      } else {
-        goodAnswerPopup(
-          "<span>Ваша заяка <br />отправленна!</span> <span>Мы вам перезвоним</span>"
-        );
-      }
-    } else {
+    } catch (e) {
       badAnswerPopup("<span>Ошибка при отправке!</span>");
+      console.error(e);
     }
   });
