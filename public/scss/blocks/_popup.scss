@@ -1,14 +1,14 @@
 .popup {
   position: fixed;
   top: 2vh;
-  left: 2vw;
+  right: 2vw;
   padding: 20px 40px 20px 30px;
   font-size: 1.125rem;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  transform: translate(-100%) scale(0.5);
+  transform: translate(100%) scale(0.5);
   transition: var(--transition-button);
   z-index: 99;
 

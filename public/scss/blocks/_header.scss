@@ -70,6 +70,25 @@
       display: flex;
       align-items: center;
     }
+
+    &-panel {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: none;
+      position: relative;
+
+      & img {
+        width: 30px;
+        aspect-ratio: 1;
+        transition: 0.1s ease;
+      }
+    }
   }
 
   &__basket-button {
@@ -85,6 +104,12 @@
     position: relative;
 
     & svg {
+      width: 30px;
+      aspect-ratio: 1;
+      transition: 0.1s ease;
+    }
+
+    & img {
       width: 30px;
       aspect-ratio: 1;
       transition: 0.1s ease;
@@ -113,11 +138,9 @@
       & svg {
         color: rgba(0, 0, 0, 0.6);
       }
-    }
 
-    &:active {
-      & svg {
-        color: black;
+      & img {
+        opacity: 0.6;
       }
     }
   }

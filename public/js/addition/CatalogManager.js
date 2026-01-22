@@ -1,4 +1,4 @@
-import { getCards } from "../backendRequsts/dbCardsCRUD.js";
+import { getCards } from "../backendRequsts/cardsCRUD.js";
 
 class CatalogManager {
   async renderAllCatalogCards(container) {

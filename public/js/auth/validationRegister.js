@@ -1,4 +1,5 @@
-import { createUser } from "../backendRequsts/dbUsersCRUD.js";
+import { createUser } from "../backendRequsts/usersCRUD.js";
+import { getJWTToken, setJWTToken } from "../addition/jwtTokenControl.js";
 
 const form = document.getElementById("form");
 const validator = new JustValidate("#form");
@@ -67,6 +68,12 @@ validator
       return badAnswerPopup("Ошибка токена");
     }
 
-    goodAnswerPopup("Регистрация прошла успешно");
-    console.log(answer);
+    const token = answer.token;
+    setJWTToken(token);
+
+    if (getJWTToken()) {
+      goodAnswerPopup("Регистрация прошла успешно");
+      console.log(answer);
+      form.reset();
+    }
   });

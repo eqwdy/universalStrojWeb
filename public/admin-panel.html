@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="/css/normalize.css" />
+    <link rel="stylesheet" href="/css/admin-panel.css" />
+  </head>
+  <script type="module">
+    import checkIsAdminOrReturn from "/js/addition/checkIsAdminOrReturn.js";
+    checkIsAdminOrReturn();
+  </script>
+  <body>
+    <!--#include virtual="/includes/header.html" -->
+    <main>
+      <section class="hero">
+        <div class="hero__inner container">
+          <h1 class="hero__title title-big">Панель управления</h1>
+          <div class="hero__body">
+            <article class="hero__c-user c-user">
+              <div class="c-user__name" id="userName">Имя: Сергей</div>
+              <div class="c-user__tel" id="userTel">
+                Телефон: +7(978) 756-14-24
+              </div>
+            </article>
+
+            <article class="hero__admins admins" id="adminsContainer"></article>
+          </div>
+          <div
+            class="hero__redact-catalog redact-catalog"
+            id="catalogRedact"
+          ></div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <!--#include virtual="/includes/footer.html" -->
+  <!--#include virtual="/includes/popup.html" -->
+  <!--#include virtual="/includes/burger.html" -->
+  <script src="/js/libs/justValidate.min.js"></script>
+  <script src="/js/libs/inputmask.min.js"></script>
+  <section
+    class="overlay"
+    id="overlay"
+    aria-modal="true"
+    role="dialog"
+    aria-hidden="true"
+  >
+    <form class="overlay__form form" id="form" tabindex="-1">
+      <h2 class="form__title">Зарегестрировать нового админа</h2>
+      <button class="form__close" id="formClose" type="button"></button>
+      <ul class="form__items">
+        <li class="form__item">
+          <input
+            type="text"
+            name="name"
+            id="formName"
+            autocomplete="name"
+            class="form__input"
+            placeholder=" "
+          />
+          <label for="formName" class="form__label">Имя*</label>
+        </li>
+        <li class="form__item">
+          <input
+            type="tel"
+            name="tel"
+            id="formTel"
+            autocomplete="tel"
+            class="form__input"
+            placeholder=" "
+          />
+          <label for="formTel" class="form__label">Телефон*</label>
+        </li>
+        <li class="form__item">
+          <input
+            type="tel"
+            name="password"
+            id="formPass"
+            class="form__input"
+            placeholder=" "
+          />
+          <label for="formPass" class="form__label">Пароль*</label>
+        </li>
+      </ul>
+      <button type="submit" class="form__button button">
+        Зарегестрировать
+      </button>
+    </form>
+  </section>
+  <script type="module" defer src="/js/admin-panel/panel.js"></script>
+  <script type="module" src="/js/admin-panel/apendAdminModal.js"></script>
+</html>

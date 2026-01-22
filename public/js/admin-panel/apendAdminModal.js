@@ -1,3 +1,6 @@
+import { getJWTToken, setJWTToken } from "../addition/jwtTokenControl.js";
+import { createAdmin } from "../backendRequsts/adminsCRUD.js";
+
 const overlay = document.getElementById("overlay");
 const form = document.getElementById("form");
 function openOverlay() {
@@ -6,12 +9,13 @@ function openOverlay() {
   setTimeout(() => form.focus(), 300);
 }
 function closeOverlay() {
+  document.activeElement.blur();
   overlay.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
   resetErrorsField();
 }
 function resetErrorsField() {
-  inputs = document.querySelectorAll(".just-validate-error-field");
+  let inputs = document.querySelectorAll(".just-validate-error-field");
   inputs.forEach((input) => {
     input.classList.remove("just-validate-error-field");
     input.removeAttribute("data-just-validate-fallback-disabled");
@@ -30,10 +34,14 @@ function smartOpenOverlay(btn) {
 }
 function smartCloseOverlay(btn) {
   closeOverlay();
+
   btn.setAttribute("aria-expanded", "false");
   btn.focus();
 }
 let openModalBtns = document.querySelectorAll('[aria-controls="overlay"]');
+document.addEventListener("adminsRendered", () => {
+  openModalBtns = document.querySelectorAll('[aria-controls="overlay"]');
+});
 let openedModalBtn = null;
 document.addEventListener("click", (e) => {
   const btn = e.target.closest('[aria-controls="overlay"]');
@@ -126,22 +134,31 @@ validator
       errorMessage: "Введите телефон!",
     },
   ])
+  .addField("#formPass", [
+    {
+      rule: "required",
+      errorMessage: "Введите пароль!",
+    },
+    {
+      rule: "minLength",
+      value: 4,
+      errorMessage: "Минимум 4 символа!",
+    },
+  ])
   .onSuccess(async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    let result = await sendDataToTg(formData);
-    if (result.success) {
-      goodAnswerPopup(
-        "<span>Ваша заяка <br />отправленна!</span> <span>Мы вам перезвоним</span>",
-      );
-
-      form.reset();
-      if (openedModalBtn) {
-        smartCloseOverlay(openedModalBtn);
-      } else {
-        closeOverlay();
-      }
-    } else {
-      badAnswerPopup("<span>Ошибка при отправке!</span>");
+    const answer = await createAdmin(formData, getJWTToken());
+    if (answer instanceof Error) {
+      return badAnswerPopup("Ошибка при регистрации");
     }
+
+    if (answer.status !== "success") {
+      console.error(answer);
+      return badAnswerPopup("Ошибка при регистрации админа");
+    }
+
+    goodAnswerPopup("Регистрация прошла успешно");
+    console.log(answer);
+    form.reset();
   });

@@ -265,14 +265,14 @@
 .popup {
   position: fixed;
   top: 2vh;
-  left: 2vw;
+  right: 2vw;
   padding: 20px 40px 20px 30px;
   font-size: 1.125rem;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  transform: translate(-100%) scale(0.5);
+  transform: translate(100%) scale(0.5);
   transition: var(--transition-button);
   z-index: 99;
 }
@@ -576,6 +576,23 @@
   display: flex;
   align-items: center;
 }
+.header__nav-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  position: relative;
+}
+.header__nav-panel img {
+  width: 30px;
+  aspect-ratio: 1;
+  transition: 0.1s ease;
+}
 .header__basket-button {
   width: 100%;
   height: 100%;
@@ -589,6 +606,11 @@
   position: relative;
 }
 .header__basket-button svg {
+  width: 30px;
+  aspect-ratio: 1;
+  transition: 0.1s ease;
+}
+.header__basket-button img {
   width: 30px;
   aspect-ratio: 1;
   transition: 0.1s ease;
@@ -616,6 +638,9 @@
   .header__basket-button:hover svg {
     color: rgba(0, 0, 0, 0.6);
   }
+  .header__basket-button:hover img {
+    opacity: 0.6;
+  }
 }
 @media (hover: none) {
   .header__basket-button:active {
@@ -624,9 +649,9 @@
   .header__basket-button:active svg {
     color: rgba(0, 0, 0, 0.6);
   }
-}
-.header__basket-button:active svg {
-  color: black;
+  .header__basket-button:active img {
+    opacity: 0.6;
+  }
 }
 
 .footer {

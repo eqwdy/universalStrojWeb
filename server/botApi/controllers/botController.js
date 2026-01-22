@@ -1,18 +1,15 @@
 import bot from "../bot.js";
 import ApiError from "../../error/ApiError.js";
-import dotenv from "dotenv";
-dotenv.config();
-const CHATID = process.env.BOT_CHATID;
 
 class botController {
-  async sendMessage(req, res) {
-    const { formName, formTel, formMessage, products } = req.body;
+  async sendMessage(req, res, next) {
+    const { formName, formTel, formMessage, products } = req.body || {};
     if (!formName || formName.trim().length < 1) {
-      return ApiError.badRequest("Missing or empty name");
+      return next(ApiError.badRequest("Missing or empty name"));
     }
 
     if (!formTel || formTel.trim().length < 10) {
-      return ApiError.badRequest("Missing or empty telephone");
+      return next(ApiError.badRequest("Missing or empty telephone"));
     }
 
     let message = `Имя: ${formName}\nТелефон: ${formTel}`;
@@ -25,11 +22,15 @@ class botController {
       let productsParsed = [];
       try {
         productsParsed = JSON.parse(products);
+        if (!Array.isArray(productsParsed)) {
+          return next(ApiError.badRequest("products должен быть массивом"));
+        }
       } catch (err) {
-        return ApiError.badRequest("Invalid products JSON");
+        console.error("Ошибка парсинга products:", err);
+        return next(ApiError.badRequest("Некорректный формат JSON в products"));
       }
 
-      if (productsParsed && Array.isArray(productsParsed)) {
+      if (productsParsed) {
         let productsMessage = `\nТовары:`;
 
         for (let product of productsParsed) {
@@ -38,7 +39,7 @@ class botController {
       Тип: ${product.type || ""}
       Размер: ${product.size || ""}
       Цвет: ${product.color || ""}
-      Количество: ${product.quantity}
+      Количество: ${product.quantity} м²
       Цена: ${product.price}
     `;
           productsMessage += productMessage;
@@ -61,10 +62,11 @@ class botController {
     message += `\nВремя отправки: ${formattedTime}`;
 
     try {
-      await bot.sendMessage(CHATID, message);
+      await bot.sendMessage(process.env.BOT_CHATID, message);
       res.status(200).json({ status: "success" });
     } catch (error) {
-      return ApiError.internal(error);
+      console.error("Ошибка при отправке в Telegram:", error);
+      return next(ApiError.internal(error.message));
     }
   }
 }

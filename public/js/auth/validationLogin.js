@@ -1,4 +1,5 @@
-import { authUser } from "../backendRequsts/dbUsersCRUD.js";
+import { loginUser } from "../backendRequsts/usersCRUD.js";
+import { getJWTToken, setJWTToken } from "../addition/jwtTokenControl.js";
 
 const form = document.getElementById("form");
 const validator = new JustValidate("#form");
@@ -7,17 +8,6 @@ const formTelMask = new Inputmask("+7(999) 999-99-99");
 formTelMask.mask(formTel);
 
 validator
-  .addField("#formName", [
-    {
-      rule: "required",
-      errorMessage: "Введите имя!",
-    },
-    {
-      rule: "minLength",
-      value: 2,
-      errorMessage: "Минимум 2 символа!",
-    },
-  ])
   .addField("#formTel", [
     {
       validator: () => {
@@ -42,7 +32,7 @@ validator
     e.preventDefault();
     const formData = new FormData(form);
 
-    const answer = await authUser(formData);
+    const answer = await loginUser(formData);
     if (answer instanceof Error) {
       switch (answer.message) {
         case "User wasnt found":
@@ -61,6 +51,12 @@ validator
       return badAnswerPopup("Ошибка токена");
     }
 
-    goodAnswerPopup("Регистрация прошла успешно");
-    console.log(answer);
+    const token = answer.token;
+    setJWTToken(token);
+
+    if (getJWTToken()) {
+      goodAnswerPopup("Авторизация прошла успешно");
+      console.log(answer);
+      form.reset();
+    }
   });
