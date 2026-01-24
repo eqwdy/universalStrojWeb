@@ -16,17 +16,29 @@
     <main>
       <section class="hero">
         <div class="hero__inner container">
-          <h1 class="hero__title title-big">Панель управления</h1>
-          <div class="hero__body">
-            <article class="hero__c-user c-user">
-              <div class="c-user__name" id="userName">Имя: Сергей</div>
-              <div class="c-user__tel" id="userTel">
-                Телефон: +7(978) 756-14-24
-              </div>
-            </article>
-
-            <article class="hero__admins admins" id="adminsContainer"></article>
-          </div>
+          <h1
+            class="hero__title title-big visually-hidden"
+            aria-label="Панель управления"
+          >
+            Панель управления
+          </h1>
+          <ul class="hero__body">
+            <li class="hero__body-item" id="cAdminContainer">
+              <!-- <article class="hero__c-user c-user">
+                <div class="c-user__img">
+                  <img src="/images/admin-panel/Admin.svg" alt="" />
+                </div>
+                <div class="c-user__info">
+                  <span class="c-user__name" id="userName">Сергей</span>
+                  <span class="c-user__tel" id="userTel"
+                    >+7(978) 756-14-24</span
+                  >
+                  <span class="c-user__role" id="userRole">Админ</span>
+                </div>
+              </article> -->
+            </li>
+            <li class="hero__body-item" id="adminsContainer"></li>
+          </ul>
           <div
             class="hero__redact-catalog redact-catalog"
             id="catalogRedact"
@@ -38,6 +50,7 @@
   <!--#include virtual="/includes/footer.html" -->
   <!--#include virtual="/includes/popup.html" -->
   <!--#include virtual="/includes/burger.html" -->
+  <!--#include virtual="/includes/dialog.html" -->
   <script src="/js/libs/justValidate.min.js"></script>
   <script src="/js/libs/inputmask.min.js"></script>
   <section

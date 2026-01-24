@@ -20,16 +20,20 @@ class CatalogManager {
     }
   }
 
-  async renderCatalogCards(count, container) {
+  async renderCatalogCards(count = null, container) {
     try {
-      const cards = await getCards();
+      let cards = await getCards();
 
       if (!cards || cards instanceof Error || cards.length === 0) {
         badAnswerPopup("Товары сейчас не доступны");
       }
 
       const fragment = document.createDocumentFragment();
-      cards.slice(0, count).forEach((card) => {
+      if (count) {
+        cards = cards.slice(0, count);
+      }
+
+      cards.forEach((card) => {
         const catalogItem = this.createCatalogItem(card);
         fragment.appendChild(catalogItem);
       });

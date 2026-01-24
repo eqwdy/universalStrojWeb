@@ -11,7 +11,7 @@ userRouter.post("/login", userController.login);
 userRouter.get("/auth", authMiddleWare, userController.check);
 
 userRouter.get("/", checkRoleMiddleWare("ADMIN"), userController.getAll);
-// userRouter.get("/me", authMiddleWare, userController.getUser);
+userRouter.get("/me", authMiddleWare, userController.getUser);
 
 userRouter.delete("/:id", checkRoleMiddleWare("ADMIN"), userController.delete);
 

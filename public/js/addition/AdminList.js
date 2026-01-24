@@ -7,36 +7,12 @@ export default class AdminsList {
   }
 
   async render() {
-    const fragment = document.createDocumentFragment();
-
-    const title = document.createElement("h2");
-    title.classList.add("admins__title");
-    title.textContent = "Список администраторов";
-
-    const list = document.createElement("ul");
-    list.classList.add("admins__list");
-    list.id = "adminsList";
-
     const admins = await this.getAdmins();
-    admins.forEach((admin) => {
-      const item = this.createAdminItem(admin);
-      list.appendChild(item);
-    });
-
-    const addButton = document.createElement("button");
-    addButton.classList.add("button", "admins__button-add");
-    addButton.setAttribute("aria-controls", "overlay");
-    addButton.setAttribute("aria-expanded", "false");
-    addButton.textContent = "Добавить админа";
-
-    fragment.appendChild(title);
-    fragment.appendChild(list);
-    fragment.appendChild(addButton);
-
-    this.container.appendChild(fragment);
+    const article = this.createLayout(admins);
+    this.container.appendChild(article);
   }
 
-  createAdminItem({ name, tel, id }) {
+  async createAdminItem({ name, tel, id }) {
     const li = document.createElement("li");
     li.classList.add("admins__item", "admin");
     li.setAttribute("data-id", id);
@@ -67,8 +43,8 @@ export default class AdminsList {
         />
     </svg>`;
     button.addEventListener("click", async () => {
-      await this.deleteAdmin(id);
-      li.remove();
+      const deleteResult = await this.deleteAdmin(id);
+      if (deleteResult) li.remove();
     });
 
     li.appendChild(info);
@@ -77,17 +53,77 @@ export default class AdminsList {
     return li;
   }
 
+  createLayout(admins) {
+    const article = document.createElement("article");
+    article.classList.add("hero__admins", "admins");
+
+    const title = document.createElement("h2");
+    title.classList.add("admins__title");
+    title.textContent = "Список администраторов";
+
+    const list = document.createElement("ul");
+    list.classList.add("admins__list");
+    list.id = "adminsList";
+
+    admins.forEach(async (admin) => {
+      const item = await this.createAdminItem(admin);
+      if (!item) return;
+      list.appendChild(item);
+    });
+
+    const addButton = document.createElement("button");
+    addButton.classList.add("button", "admins__button-add");
+    addButton.setAttribute("aria-controls", "overlay");
+    addButton.setAttribute("aria-expanded", "false");
+    addButton.textContent = "Добавить админа";
+
+    article.appendChild(title);
+    article.appendChild(list);
+    article.appendChild(addButton);
+
+    return article;
+  }
+
   async getAdmins() {
-    const admins = await getAdmins(getJWTToken());
-    return admins;
+    try {
+      const admins = await getAdmins(getJWTToken());
+      return admins;
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
   }
 
   async deleteAdmin(id) {
-    const result = await deleteAdmin(id, getJWTToken());
-    return result;
+    try {
+      const isAgree = await this.confirm();
+      if (!isAgree) return;
+
+      const result = await deleteAdmin(id, getJWTToken());
+      return result;
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
   }
 
-  async appendAdmin(formData) {}
+  confirm() {
+    return new Promise((resolve) => {
+      const dialog = document.getElementById("confirmDialog");
+      dialog.classList.remove("hidden");
 
-  confirm(func) {}
+      const yesBtn = document.getElementById("confirmYes");
+      const noBtn = document.getElementById("confirmNo");
+
+      yesBtn.onclick = () => {
+        dialog.classList.add("hidden");
+        resolve(true);
+      };
+
+      noBtn.onclick = () => {
+        dialog.classList.add("hidden");
+        resolve(false);
+      };
+    });
+  }
 }

@@ -1,5 +1,5 @@
 import { ProductCard } from "../addition/ProductCard.js";
-import { getCardById } from "../backendRequsts/dbCardsCRUD.js";
+import { getCardById } from "../backendRequsts/cardsCRUD.js";
 
 function getIdFromPath(path) {
   const match = path.match(/\/([^\/]+)\/?$/);
@@ -11,10 +11,10 @@ if (!id) {
   badAnswer("ID товара не обнаружен");
   console.error("ID не обнаружен");
 } else {
-  getAndRenderCatalogCard(id);
+  renderCatalogCard(id);
 }
 
-async function getAndRenderCatalogCard(id) {
+async function renderCatalogCard(id) {
   const productCard = new ProductCard(await getCardById(id));
   if (!productCard || productCard instanceof Error) {
     badAnswerPopup("Товары не найдены");

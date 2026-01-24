@@ -421,21 +421,20 @@ class UserController {
     }
   }
 
-  //   async getUser(req, res, next) {
-  //     try {
-  //       const { id } = req.params;
+  async getUser(req, res, next) {
+    try {
+      const id = req.user.id;
+      const user = await User.findByPk(id);
+      if (!user) {
+        return next(ApiError.badRequest("User not found"));
+      }
 
-  //       const user = await User.findByPk(id);
-  //       if (!user) {
-  //         return next(ApiError.badRequest("User not found"));
-  //       }
-
-  //       return res.json(user);
-  //     } catch (e) {
-  //       console.error(e.message);
-  //       return next(ApiError.internal(e.message));
-  //     }
-  //   }
+      return res.json(user);
+    } catch (e) {
+      console.error(e.message);
+      return next(ApiError.internal(e.message));
+    }
+  }
 }
 
 export default new UserController();

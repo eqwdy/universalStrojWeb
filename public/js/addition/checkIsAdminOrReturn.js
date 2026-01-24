@@ -1,7 +1,8 @@
 import { authAdmin } from "../backendRequsts/adminsCRUD.js";
+import { getJWTToken, setJWTToken } from "./jwtTokenControl.js";
 
 export default async function checkIsAdminOrReturn() {
-  const token = localStorage.getItem("jwt");
+  const token = getJWTToken();
   if (!token) {
     window.location.href = "/";
     return;
@@ -13,6 +14,6 @@ export default async function checkIsAdminOrReturn() {
     return;
   }
 
-  localStorage.setItem("jwt", newToken);
+  setJWTToken(newToken);
   return true;
 }
