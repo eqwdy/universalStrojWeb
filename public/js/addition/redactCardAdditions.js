@@ -53,3 +53,100 @@ export function createAddition(text = null) {
 
   return li;
 }
+
+export function setValueHandler({
+  title,
+  price,
+  description,
+  types = null,
+  sizes = null,
+  colors = null,
+}) {
+  const redactTitle = document.getElementById("redactTitle");
+  const redactPrice = document.getElementById("redactPrice");
+  const redactDescription = document.getElementById("redactDescription");
+  const redactDescriptionLi = redactDescription.closest("li");
+
+  redactTitle.value = title;
+  redactPrice.value = price;
+  redactDescription.value = description;
+
+  const redactFormList = redactTitle.closest(".redact-form__items");
+  if (types) {
+    const additionEnv = createAdditionEnv("Типы товара", "redactTypesList");
+    const additionsList = additionEnv.querySelector(".redact-form__additions");
+    const addLi = additionsList.querySelector(".redact-form__addition-add");
+
+    types.forEach((type) => {
+      const addition = createAddition(type.text);
+      additionsList.insertBefore(addition, addLi);
+    });
+
+    redactFormList.insertBefore(additionEnv, redactDescriptionLi);
+    additionEnv.querySelectorAll(".addition__content").forEach((input) => {
+      resize(input);
+    });
+  }
+  if (sizes) {
+    const additionEnv = createAdditionEnv("Размеры товара", "redactSizesList");
+    const additionsList = additionEnv.querySelector(".redact-form__additions");
+    const addLi = additionsList.querySelector(".redact-form__addition-add");
+
+    sizes.forEach((size) => {
+      const addition = createAddition(size.text);
+      additionsList.insertBefore(addition, addLi);
+    });
+
+    redactFormList.insertBefore(additionEnv, redactDescriptionLi);
+    additionEnv.querySelectorAll(".addition__content").forEach((input) => {
+      resize(input);
+    });
+  }
+  if (colors) {
+    const additionEnv = createAdditionEnv("Цвета товара", "redactColorsList");
+    const additionsList = additionEnv.querySelector(".redact-form__additions");
+    const addLi = additionsList.querySelector(".redact-form__addition-add");
+
+    colors.forEach((color) => {
+      const addition = createAddition(color.text);
+      additionsList.insertBefore(addition, addLi);
+    });
+
+    redactFormList.insertBefore(additionEnv, redactDescriptionLi);
+    additionEnv.querySelectorAll(".addition__content").forEach((input) => {
+      resize(input);
+    });
+  }
+}
+
+export function createAdditionEnv(title, listId) {
+  const formLi = document.createElement("li");
+  formLi.classList.add("redact-form__item");
+
+  const titleEl = document.createElement("h3");
+  titleEl.classList.add("redact-form__label");
+  titleEl.textContent = title;
+
+  const additionsList = document.createElement("ul");
+  additionsList.classList.add("redact-form__additions");
+  additionsList.id = listId;
+
+  const additionItemAdd = document.createElement("li");
+  additionItemAdd.classList.add(
+    "redact-form__addition",
+    "redact-form__addition-add",
+  );
+
+  const addButton = document.createElement("button");
+  addButton.type = "button";
+  addButton.classList.add("addition__add");
+
+  additionItemAdd.appendChild(addButton);
+
+  additionsList.appendChild(additionItemAdd);
+
+  formLi.appendChild(titleEl);
+  formLi.appendChild(additionsList);
+
+  return formLi;
+}

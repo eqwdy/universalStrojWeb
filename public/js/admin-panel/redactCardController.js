@@ -4,7 +4,12 @@ import {
   windowClickCloseOverlayHandler,
   focusTrapHandler,
 } from "../addition/modalsControl.js";
-import { resize, createAddition } from "../addition/redactCardAdditions.js";
+import {
+  resize,
+  createAddition,
+  setValueHandler,
+} from "../addition/redactCardAdditions.js";
+import { getCardById } from "../backendRequsts/cardsCRUD.js";
 
 const overlayRedact = document.getElementById("overlayRedact");
 const formRedact = document.getElementById("formRedact");
@@ -15,14 +20,29 @@ formRedactClose.addEventListener("click", () => {
   animatedClose(overlayRedact, formRedact, openedOverlayRedactButton);
 });
 
-window.addEventListener("mousedown", (e) => {
+window.addEventListener("mousedown", async (e) => {
   const btn = e.target.closest(`[aria-controls="${overlayRedact.id}"]`);
   if (btn) {
     openedOverlayRedactButton = btn;
 
     if (openedOverlayRedactButton.dataset.productId) {
-      formRedact.dataset.productId =
-        openedOverlayRedactButton.dataset.productId;
+      const id = openedOverlayRedactButton.dataset.productId;
+      if (document.getElementById("redactTypesList")) {
+        // Сравнивать с данными внутри и перерисовывать при необходимости
+        document.getElementById("redactTypesList").closest("li").remove();
+      }
+      if (document.getElementById("redactSizesList")) {
+        // Сравнивать с данными внутри и перерисовывать при необходимости
+        document.getElementById("redactSizesList").closest("li").remove();
+      }
+      if (document.getElementById("redactColorsList")) {
+        // Сравнивать с данными внутри и перерисовывать при необходимости
+        document.getElementById("redactColorsList").closest("li").remove();
+      }
+
+      const card = await getCardById(id);
+      console.log(card);
+      setValueHandler(card);
     }
 
     smartOpenOverlay(overlayRedact, formRedact, openedOverlayRedactButton);
@@ -48,7 +68,6 @@ formRedact.addEventListener("input", (e) => {
   }
 });
 
-const redactAdditionsList = document.getElementById("redactAdditionsList");
 formRedact.addEventListener("click", (e) => {
   if (e.target.closest(".addition__delete")) {
     e.stopPropagation();
@@ -56,9 +75,8 @@ formRedact.addEventListener("click", (e) => {
   } else if (e.target.closest(".addition__add")) {
     e.stopPropagation();
     const newLi = createAddition();
-    const addBtnLi = redactAdditionsList
-      .querySelector(".addition__add")
-      .closest("li");
+    const addBtnLi = e.target.closest("li");
+    const redactAdditionsList = addBtnLi.closest(".redact-form__additions");
     redactAdditionsList.insertBefore(newLi, addBtnLi);
     resize(newLi.querySelector(".addition__content"));
   }

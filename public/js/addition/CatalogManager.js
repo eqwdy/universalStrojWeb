@@ -108,14 +108,14 @@ class CatalogManager {
     redactButton.setAttribute("aria-controls", "overlayRedact");
     redactButton.dataset.productId = id;
     // redactButton.dataset.product = JSON.stringify({
-    //   id,
-    //   img,
-    //   title,
-    //   price,
+    //   //   id,
+    //   //   img,
+    //   //   title,
+    //   //   price,
+    //   //   description,
     //   types,
     //   sizes,
     //   colors,
-    //   description,
     // });
 
     const hrefButton = document.createElement("a");
