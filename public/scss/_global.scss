@@ -90,6 +90,18 @@
     font-size: 1.125rem;
   }
 
+  &-red {
+    background-color: var(--color-maroon);
+
+    @include hover {
+      background-color: var(--color-maroon-tint);
+    }
+
+    &:active {
+      background-color: var(--color-maroon);
+    }
+  }
+
   &-request {
     padding: 10px 20px;
     font-size: 1.4rem;

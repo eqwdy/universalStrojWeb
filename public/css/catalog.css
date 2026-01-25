@@ -12,6 +12,7 @@
   --color-light-gray: #81899a;
   --color-gray-white: #bebebe;
   --color-maroon: #800000;
+  --color-maroon-tint: #963434;
 }
 
 * {
@@ -112,6 +113,22 @@
   .button {
     font-size: 1.125rem;
   }
+}
+.button-red {
+  background-color: var(--color-maroon);
+}
+@media (hover: hover) {
+  .button-red:hover {
+    background-color: var(--color-maroon-tint);
+  }
+}
+@media (hover: none) {
+  .button-red:active {
+    background-color: var(--color-maroon-tint);
+  }
+}
+.button-red:active {
+  background-color: var(--color-maroon);
 }
 .button-request {
   padding: 10px 20px;

@@ -18,14 +18,14 @@ export function createPlitkaCard() {
       { value: "60mm", text: "60мм" },
     ],
     colors: [
-      { value: "black", text: "Чёрный" },
-      { value: "gray", text: "Серый" },
-      { value: "white", text: "Белый" },
-      { value: "brown", text: "Коричневый" },
-      { value: "red", text: "Красный" },
-      { value: "yellow", text: "Жёлтый" },
-      { value: "orange", text: "Оранжевый" },
-      { value: "olive", text: "Оливковый" },
+      { value: "#000000", text: "Чёрный" },
+      { value: "#808080", text: "Серый" },
+      { value: "#f8f8f8", text: "Белый" },
+      { value: "#a52a2a", text: "Коричневый" },
+      { value: "#ff0000", text: "Красный" },
+      { value: "#ffff00", text: "Жёлтый" },
+      { value: "#ffa500", text: "Оранжевый" },
+      { value: "#808000", text: "Оливковый" },
     ],
   };
 }
@@ -44,9 +44,9 @@ export function createPorebrikCard() {
     title: "Поребрик",
     price: 120,
     colors: [
-      { value: "gray", text: "Серый" },
-      { value: "brown", text: "Коричневый" },
-      { value: "red", text: "Красный" },
+      { value: "#808080", text: "Серый" },
+      { value: "#a52a2a", text: "Коричневый" },
+      { value: "#ff0000", text: "Красный" },
     ],
     description:
       "Производим поребрики 470х60х200 мм, серого, красного и коричневого цветов.",

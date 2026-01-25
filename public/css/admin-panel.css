@@ -12,6 +12,7 @@
   --color-light-gray: #81899a;
   --color-gray-white: #bebebe;
   --color-maroon: #800000;
+  --color-maroon-tint: #963434;
 }
 
 * {
@@ -112,6 +113,22 @@
   .button {
     font-size: 1.125rem;
   }
+}
+.button-red {
+  background-color: var(--color-maroon);
+}
+@media (hover: hover) {
+  .button-red:hover {
+    background-color: var(--color-maroon-tint);
+  }
+}
+@media (hover: none) {
+  .button-red:active {
+    background-color: var(--color-maroon-tint);
+  }
+}
+.button-red:active {
+  background-color: var(--color-maroon);
 }
 .button-request {
   padding: 10px 20px;
@@ -1076,7 +1093,6 @@
   transform: translateY(-50%);
   width: 30px;
   aspect-ratio: 1;
-  border-radius: 50%;
 }
 .addition__palette > input {
   border: none;
@@ -1086,16 +1102,7 @@
   outline: none;
   width: 100%;
   height: 100%;
-}
-@media (hover: hover) {
-  .addition__palette > input:hover {
-    cursor: pointer;
-  }
-}
-@media (hover: none) {
-  .addition__palette > input:active {
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 .addition__delete {
   display: flex;

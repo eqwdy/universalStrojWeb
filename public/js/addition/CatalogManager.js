@@ -1,4 +1,9 @@
-import { getCards } from "../backendRequsts/cardsCRUD.js";
+import {
+  getCards,
+  deleteAllCards,
+  createExamplesCards,
+} from "../backendRequsts/cardsCRUD.js";
+import { getJWTToken } from "./jwtTokenControl.js";
 
 class CatalogManager {
   async renderCatalogCards(container, options = {}) {
@@ -25,6 +30,15 @@ class CatalogManager {
       badAnswerPopup("Ошибка при загрузке товаров");
       console.error(e);
     }
+  }
+
+  async renderCatalogControlButtons(container) {
+    // Update cards Listener on CustomEvent
+    const { createExamplesButton, deleteAllButton } =
+      this.createCatalogControlButtons();
+
+    container.appendChild(createExamplesButton);
+    container.appendChild(deleteAllButton);
   }
 
   createCatalogItem({ id, img, title, price, description }) {
@@ -107,16 +121,6 @@ class CatalogManager {
     redactButton.type = "button";
     redactButton.setAttribute("aria-controls", "overlayRedact");
     redactButton.dataset.productId = id;
-    // redactButton.dataset.product = JSON.stringify({
-    //   //   id,
-    //   //   img,
-    //   //   title,
-    //   //   price,
-    //   //   description,
-    //   types,
-    //   sizes,
-    //   colors,
-    // });
 
     const hrefButton = document.createElement("a");
     hrefButton.href = `/catalog/card/${id}`;
@@ -138,6 +142,46 @@ class CatalogManager {
     li.appendChild(article);
 
     return li;
+  }
+
+  createCatalogControlButtons() {
+    const createExamplesButton = document.createElement("button");
+    createExamplesButton.classList.add("button");
+    createExamplesButton.textContent = "Создать экземляры";
+    createExamplesButton.addEventListener("click", async () => {
+      try {
+        const asnwer = await createExamplesCards(getJWTToken());
+        if (!asnwer || asnwer instanceof Error) {
+          badAnswerPopup("Ошибка!");
+        }
+
+        goodAnswerPopup("Карточки товаров были созданы!");
+      } catch (e) {
+        badAnswerPopup("Ошибка при создании экземляров!");
+        console.error(e);
+        return;
+      }
+    });
+
+    const deleteAllButton = document.createElement("button");
+    deleteAllButton.classList.add("button", "button-red");
+    deleteAllButton.textContent = "Удалить все";
+    deleteAllButton.addEventListener("click", async () => {
+      try {
+        const asnwer = await deleteAllCards(getJWTToken());
+        if (!asnwer || asnwer instanceof Error) {
+          badAnswerPopup("Ошибка!");
+        }
+
+        goodAnswerPopup("Карточки товаров были удалены!");
+      } catch (e) {
+        badAnswerPopup("Ошибка при удалении всех карточек!");
+        console.error(e);
+        return;
+      }
+    });
+
+    return { createExamplesButton, deleteAllButton };
   }
 
   createImgEl(imgSrc, title) {
@@ -173,8 +217,6 @@ class CatalogManager {
 
     return priceEl;
   }
-
-  createTypeEl({ value, text }) {}
 
   createDescriptionEl(description) {
     const desc = document.createElement("p");

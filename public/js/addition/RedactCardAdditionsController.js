@@ -125,8 +125,8 @@ class RedactCardAdditionsController {
 
     const additionPalette = document.createElement("input");
     additionPalette.type = "color";
-
-    // additionPalette.classList.add("addition__palette");
+    additionPalette.value = value || "#000000";
+    // additionPalette.dataset.colorValue = additionPalette.value;
 
     additionPaletteWrapper.appendChild(additionPalette);
     additionWrapper.appendChild(additionPaletteWrapper);

@@ -22,7 +22,11 @@ try {
 }
 
 try {
-  CatalogManager.renderCatalogCards(catalogContainer, { token: getJWTToken() });
+  CatalogManager.renderCatalogCards(catalogContainer, {
+    token: getJWTToken(),
+  }).then(() => {
+    CatalogManager.renderCatalogControlButtons(catalogContainer);
+  });
 } catch (e) {
   console.error(e);
 }
