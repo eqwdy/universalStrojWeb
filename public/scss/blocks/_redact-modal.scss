@@ -142,6 +142,12 @@
 .addition {
   position: relative;
 
+  &__content {
+    padding-right: 35px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   &__delete {
     display: flex;
     justify-content: center;

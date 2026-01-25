@@ -107,16 +107,16 @@ class CatalogManager {
     redactButton.type = "button";
     redactButton.setAttribute("aria-controls", "overlayRedact");
     redactButton.dataset.productId = id;
-    redactButton.dataset.product = JSON.stringify({
-      id,
-      img,
-      title,
-      price,
-      types,
-      sizes,
-      colors,
-      description,
-    });
+    // redactButton.dataset.product = JSON.stringify({
+    //   id,
+    //   img,
+    //   title,
+    //   price,
+    //   types,
+    //   sizes,
+    //   colors,
+    //   description,
+    // });
 
     const hrefButton = document.createElement("a");
     hrefButton.href = `/catalog/card/${id}`;
