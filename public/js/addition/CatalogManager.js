@@ -1,42 +1,24 @@
 import { getCards } from "../backendRequsts/cardsCRUD.js";
 
 class CatalogManager {
-  async renderAllCatalogCards(container) {
+  async renderCatalogCards(container, options = {}) {
+    const { count = null, token = null } = options;
     try {
-      const cards = await getCards();
-
-      if (!cards || cards instanceof Error || cards.length === 0) {
-        window.location.href = "/";
-        return;
-      }
-
-      cards.forEach((card) => {
-        const catalogItem = this.createCatalogItem(card);
-        container.appendChild(catalogItem);
-      });
-    } catch (e) {
-      badAnswerPopup("Ошибка при загрузке товаров");
-      console.error(e);
-    }
-  }
-
-  async renderCatalogCards(count = null, container) {
-    try {
-      let cards = await getCards();
-
-      if (!cards || cards instanceof Error || cards.length === 0) {
-        badAnswerPopup("Товары сейчас не доступны");
-      }
-
       const fragment = document.createDocumentFragment();
-      if (count) {
-        cards = cards.slice(0, count);
-      }
 
-      cards.forEach((card) => {
-        const catalogItem = this.createCatalogItem(card);
-        fragment.appendChild(catalogItem);
-      });
+      const cards = await this.getCards(count);
+
+      if (token) {
+        cards.forEach((card) => {
+          const catalogItem = this.createAdminCatalogItem(card);
+          fragment.appendChild(catalogItem);
+        });
+      } else {
+        cards.forEach((card) => {
+          const catalogItem = this.createCatalogItem(card);
+          fragment.appendChild(catalogItem);
+        });
+      }
 
       container.appendChild(fragment);
     } catch (e) {
@@ -46,21 +28,124 @@ class CatalogManager {
   }
 
   createCatalogItem({ id, img, title, price, description }) {
-    const li = document.createElement("li");
-    li.className = "catalog__item";
+    const titlePar = title.trim();
+    const descriptionPar = description.trim();
 
-    const a = document.createElement("a");
-    a.href = `/catalog/card/${id}`;
-    a.className = "link-reset";
+    const li = document.createElement("li");
+    li.classList.add("catalog__item");
+
+    const link = document.createElement("a");
+    link.href = `/catalog/card/${id}`;
+    link.className = "link-reset";
 
     const article = document.createElement("article");
     article.className = "catalog__item-product product";
 
+    const body = document.createElement("div");
+    body.className = "product__body";
+
+    const imgEl = this.createImgEl(img);
+    const titleEl = this.createTitleEl(titlePar);
+    const priceEl = this.createPriceEl(price);
+
+    const descriptionEl = this.createDescriptionEl(descriptionPar);
+    descriptionEl.dataset.fullText = description.trim();
+    descriptionEl.textContent = this.getCuttedText(descriptionPar, 10);
+
+    body.appendChild(titleEl);
+    body.appendChild(priceEl);
+    body.appendChild(descriptionEl);
+
+    article.appendChild(imgEl);
+    article.appendChild(body);
+
+    link.appendChild(article);
+    li.appendChild(link);
+
+    return li;
+  }
+
+  createAdminCatalogItem({
+    id,
+    img,
+    title,
+    price,
+    types,
+    sizes,
+    colors,
+    description,
+  }) {
+    const li = document.createElement("li");
+    li.classList.add("catalog__item");
+
+    const article = document.createElement("article");
+    article.classList.add("catalog__item-product", "product");
+    article.dataset.productId = id;
+
+    const body = document.createElement("div");
+    body.classList.add("product__body");
+
+    const imgWrapper = document.createElement("div");
+    imgWrapper.classList.add("product__wrapper", "product__wrapper-img");
+
+    const titleWrapper = document.createElement("div");
+    titleWrapper.classList.add("product__wrapper", "product__wrapper-title");
+
+    const priceWrapper = document.createElement("div");
+    priceWrapper.classList.add("product__wrapper", "product__wrapper-price");
+
+    const descriptionWrapper = document.createElement("div");
+    descriptionWrapper.classList.add(
+      "product__wrapper",
+      "product__wrapper-description",
+    );
+
+    const redactButton = document.createElement("button");
+    redactButton.classList.add("product__button-redact", "button");
+    redactButton.textContent = "Редактировать";
+    redactButton.addEventListener("click", () => {});
+    redactButton.type = "button";
+    redactButton.setAttribute("aria-controls", "overlayRedact");
+    redactButton.dataset.productId = id;
+    redactButton.dataset.product = JSON.stringify({
+      id,
+      img,
+      title,
+      price,
+      types,
+      sizes,
+      colors,
+      description,
+    });
+
+    const hrefButton = document.createElement("a");
+    hrefButton.href = `/catalog/card/${id}`;
+    hrefButton.classList.add("product__button", "button", "button-arrow");
+    hrefButton.textContent = "Перейти к карточке товара";
+
+    imgWrapper.appendChild(this.createImgEl(img, title));
+    titleWrapper.appendChild(this.createTitleEl(title));
+    priceWrapper.appendChild(this.createPriceEl(price));
+    descriptionWrapper.appendChild(this.createDescriptionEl(description));
+
+    body.append(titleWrapper, priceWrapper, descriptionWrapper);
+
+    article.appendChild(imgWrapper);
+    article.appendChild(body);
+    article.appendChild(redactButton);
+    article.appendChild(hrefButton);
+
+    li.appendChild(article);
+
+    return li;
+  }
+
+  createImgEl(imgSrc, title) {
     const divImg = document.createElement("div");
-    divImg.className = "product__img";
+    divImg.classList.add("product__img");
 
     const imgItem = document.createElement("img");
-    imgItem.src = `/static/${img}`;
+    imgItem.src = `/static/${imgSrc}`;
     imgItem.alt = title;
     imgItem.loading = "lazy";
     imgItem.width = 250;
@@ -68,37 +153,67 @@ class CatalogManager {
 
     divImg.appendChild(imgItem);
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "product__wrapper";
+    return divImg;
+  }
 
-    const h3 = document.createElement("h3");
-    h3.className = "product__title";
-    h3.setAttribute("itemprop", "name");
-    h3.textContent = title;
+  createTitleEl(title) {
+    const titleEl = document.createElement("h3");
+    titleEl.classList.add("product__title");
+    titleEl.setAttribute("itemprop", "name");
+    titleEl.textContent = title;
 
-    const divPrice = document.createElement("div");
-    divPrice.className = "product__price";
-    divPrice.setAttribute("itemprop", "price");
-    divPrice.innerHTML = `${price}&nbsp;₽`;
+    return titleEl;
+  }
 
-    const p = document.createElement("p");
-    p.className = "product__description";
-    p.setAttribute("data-role", "productDescription");
-    p.setAttribute("itemprop", "description");
-    p.dataset.fullText = description.trim();
-    p.textContent = this.getCuttedText(p.dataset.fullText, 10);
+  createPriceEl(price) {
+    const priceEl = document.createElement("div");
+    priceEl.classList.add("product__price");
+    priceEl.setAttribute("itemprop", "price");
+    priceEl.innerHTML = `${price}&nbsp;₽`;
 
-    wrapper.appendChild(h3);
-    wrapper.appendChild(divPrice);
-    wrapper.appendChild(p);
+    return priceEl;
+  }
 
-    article.appendChild(divImg);
-    article.appendChild(wrapper);
+  createTypeEl({ value, text }) {}
 
-    a.appendChild(article);
-    li.appendChild(a);
+  createDescriptionEl(description) {
+    const desc = document.createElement("p");
+    desc.classList.add("product__description");
+    desc.setAttribute("data-role", "productDescription");
+    desc.setAttribute("itemprop", "description");
+    desc.textContent = description.trim();
 
-    return li;
+    return desc;
+  }
+
+  createRedactEl() {
+    const redactElData = document.createElement("span");
+    redactElData.classList.add("product__redact");
+    const redactSvg = document.createElement("img");
+    redactSvg.src = "../../images/header/pencil.svg";
+
+    redactElData.appendChild(redactSvg);
+
+    return redactElData;
+  }
+
+  async getCards(count = null) {
+    try {
+      let cards = await getCards();
+
+      if (!cards || cards instanceof Error || cards.length === 0) {
+        badAnswerPopup("Товары сейчас не доступны");
+      }
+
+      if (count) {
+        cards = cards.slice(0, count);
+      }
+
+      return cards;
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
   }
 
   getCuttedText(text, maxWords) {

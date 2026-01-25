@@ -39,10 +39,9 @@
             </li>
             <li class="hero__body-item" id="adminsContainer"></li>
           </ul>
-          <div
-            class="hero__redact-catalog redact-catalog"
-            id="catalogRedact"
-          ></div>
+          <div class="hero__redact-catalog catalog">
+            <ul class="catalog__list" id="catalogContainer"></ul>
+          </div>
         </div>
       </section>
     </main>
@@ -51,6 +50,7 @@
   <!--#include virtual="/includes/popup.html" -->
   <!--#include virtual="/includes/burger.html" -->
   <!--#include virtual="/includes/dialog.html" -->
+  <!--#include virtual="/includes/redact-modal.html" -->
   <script src="/js/libs/justValidate.min.js"></script>
   <script src="/js/libs/inputmask.min.js"></script>
   <section
@@ -61,7 +61,7 @@
     aria-hidden="true"
   >
     <form class="overlay__form form" id="form" tabindex="-1">
-      <h2 class="form__title">Зарегестрировать нового админа</h2>
+      <h2 class="form__title">Зарегистрировать нового админа</h2>
       <button class="form__close" id="formClose" type="button"></button>
       <ul class="form__items">
         <li class="form__item">
@@ -103,5 +103,20 @@
     </form>
   </section>
   <script type="module" defer src="/js/admin-panel/panel.js"></script>
-  <script type="module" src="/js/admin-panel/apendAdminModal.js"></script>
+  <script type="module" defer src="/js/admin-panel/apendAdminModal.js"></script>
+  <script
+    type="module"
+    defer
+    src="/js/admin-panel/redactCardController.js"
+  ></script>
+  <script
+    type="module"
+    defer
+    src="/js/admin-panel/redactCardAdditions.js"
+  ></script>
+  <script
+    type="module"
+    defer
+    src="/js/admin-panel/redactCardValidation.js"
+  ></script>
 </html>

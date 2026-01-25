@@ -1,11 +1,11 @@
 import AdminsList from "../addition/AdminList.js";
 import CAdminInfo from "../addition/C-AdminInfo.js";
-// import { getUser } from "../backendRequsts/usersCRUD.js";
-// import { getJWTToken } from "../addition/jwtTokenControl.js";
+import { getJWTToken } from "../addition/jwtTokenControl.js";
 import CatalogManager from "../addition/CatalogManager.js";
 
 const cAdminContainer = document.getElementById("cAdminContainer");
 const adminsContainer = document.getElementById("adminsContainer");
+const catalogContainer = document.getElementById("catalogContainer");
 
 try {
   const cAdminInfo = new CAdminInfo(cAdminContainer);
@@ -16,16 +16,13 @@ try {
 
 try {
   const adminsList = new AdminsList(adminsContainer);
-  adminsList.render().then(() => {
-    document.dispatchEvent(new Event("adminsRendered"));
-  });
+  adminsList.render();
 } catch (e) {
   console.error(e);
 }
 
 try {
-  const catalogContainer = document.getElementById("catalogItems");
-  CatalogManager.renderCatalogCards(4, catalogContainer);
+  CatalogManager.renderCatalogCards(catalogContainer, { token: getJWTToken() });
 } catch (e) {
   console.error(e);
 }

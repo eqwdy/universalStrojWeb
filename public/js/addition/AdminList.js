@@ -1,5 +1,5 @@
 import { getAdmins, deleteAdmin } from "../backendRequsts/adminsCRUD.js";
-import { getJWTToken, setJWTToken } from "./jwtTokenControl.js";
+import { getJWTToken } from "./jwtTokenControl.js";
 
 export default class AdminsList {
   constructor(container) {
@@ -8,7 +8,7 @@ export default class AdminsList {
 
   async render() {
     const admins = await this.getAdmins();
-    const article = this.createLayout(admins);
+    const article = await this.createLayout(admins);
     this.container.appendChild(article);
   }
 
@@ -44,7 +44,7 @@ export default class AdminsList {
     </svg>`;
     button.addEventListener("click", async () => {
       const deleteResult = await this.deleteAdmin(id);
-      if (deleteResult) li.remove();
+      if (deleteResult) await this.updateAdminsList();
     });
 
     li.appendChild(info);
@@ -53,7 +53,7 @@ export default class AdminsList {
     return li;
   }
 
-  createLayout(admins) {
+  async createLayout(admins) {
     const article = document.createElement("article");
     article.classList.add("hero__admins", "admins");
 
@@ -65,11 +65,10 @@ export default class AdminsList {
     list.classList.add("admins__list");
     list.id = "adminsList";
 
-    admins.forEach(async (admin) => {
+    for (const admin of admins) {
       const item = await this.createAdminItem(admin);
-      if (!item) return;
-      list.appendChild(item);
-    });
+      if (item) list.appendChild(item);
+    }
 
     const addButton = document.createElement("button");
     addButton.classList.add("button", "admins__button-add");
@@ -81,7 +80,28 @@ export default class AdminsList {
     article.appendChild(list);
     article.appendChild(addButton);
 
+    document.addEventListener(
+      "adminAdded",
+      async () => await this.updateAdminsList(),
+    );
+
     return article;
+  }
+
+  async updateAdminsList() {
+    const list = document.getElementById("adminsList");
+
+    try {
+      const admins = await this.getAdmins();
+      list.innerHTML = "";
+      for (const admin of admins) {
+        const item = await this.createAdminItem(admin);
+        if (item) list.appendChild(item);
+      }
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
   }
 
   async getAdmins() {

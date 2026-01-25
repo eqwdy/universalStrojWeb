@@ -89,7 +89,7 @@ class CardController {
       if (colors !== undefined) card.colors = colors;
 
       await card.save();
-      return res.json({ status: "success", card });
+      return res.json({ status: "success" });
     } catch (e) {
       console.error(e.message);
       return next(ApiError.internal(e.message));

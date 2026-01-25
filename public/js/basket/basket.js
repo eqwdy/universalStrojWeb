@@ -168,9 +168,9 @@ if (basketStorage && basketStorage.length) {
   basketStorage.forEach((product) => {
     table.addRow({
       title: product.title,
-      type: product.type || "",
-      size: product.size || "",
-      color: product.color || "",
+      type: product.type || "Обычный",
+      size: product.size || "Обычный",
+      color: product.color || "Обычный",
       price: `${product.price}\u00A0₽`,
       quantity: `${product.quantity}\u00A0м²`,
     });

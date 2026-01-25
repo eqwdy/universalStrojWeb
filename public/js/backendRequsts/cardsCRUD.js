@@ -6,7 +6,7 @@ export async function getCards() {
 
     if (!response.ok) {
       return new Error(
-        `${response.status}: ${response.statusText || "Неизвестный сбой"}`
+        `${response.status}: ${response.statusText || "Неизвестный сбой"}`,
       );
     }
 
@@ -26,13 +26,37 @@ export async function getCardById(id) {
 
     if (!response.ok) {
       return new Error(
-        `${response.status}: ${response.statusText || "Неизвестный сбой"}`
+        `${response.status}: ${response.statusText || "Неизвестный сбой"}`,
       );
     }
 
     const card = await response.json();
 
     return card;
+  } catch (error) {
+    return new Error(error.message || "Ошибка запроса");
+  }
+}
+
+export async function updateCard(id, formData, token) {
+  try {
+    const response = await fetch(`http://localhost/api/db/card/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      return new Error(
+        `${response.status}: ${response.statusText || "Неизвестный сбой"}`,
+      );
+    }
+
+    const answer = await response.json();
+
+    return answer;
   } catch (error) {
     return new Error(error.message || "Ошибка запроса");
   }
