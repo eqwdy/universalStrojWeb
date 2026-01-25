@@ -5,7 +5,10 @@
   inset: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  //   align-items: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding-top: 40px;
   background-color: rgba(0, 0, 0, 0.4);
 
   &[aria-hidden="false"] {
@@ -146,6 +149,37 @@
     padding-right: 35px;
     max-width: 100%;
     box-sizing: border-box;
+
+    &-palette {
+      padding-left: 40px;
+    }
+  }
+
+  &__palette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+    & > input {
+      border: none;
+      background: none;
+      padding: 0;
+      margin: 0;
+      outline: none;
+      width: 100%;
+      height: 100%;
+
+      @include hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &__delete {

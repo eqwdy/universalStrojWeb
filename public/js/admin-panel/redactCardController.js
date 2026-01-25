@@ -4,11 +4,7 @@ import {
   windowClickCloseOverlayHandler,
   focusTrapHandler,
 } from "../addition/modalsControl.js";
-import {
-  resize,
-  createAddition,
-  setValueHandler,
-} from "../addition/redactCardAdditions.js";
+import RedactCardAdditionsController from "../addition/RedactCardAdditionsController.js";
 import { getCardById } from "../backendRequsts/cardsCRUD.js";
 
 const overlayRedact = document.getElementById("overlayRedact");
@@ -27,22 +23,20 @@ window.addEventListener("mousedown", async (e) => {
 
     if (openedOverlayRedactButton.dataset.productId) {
       const id = openedOverlayRedactButton.dataset.productId;
+      // Сравнивать с данными внутри и перерисовывать только при необходимости
       if (document.getElementById("redactTypesList")) {
-        // Сравнивать с данными внутри и перерисовывать при необходимости
         document.getElementById("redactTypesList").closest("li").remove();
       }
       if (document.getElementById("redactSizesList")) {
-        // Сравнивать с данными внутри и перерисовывать при необходимости
         document.getElementById("redactSizesList").closest("li").remove();
       }
       if (document.getElementById("redactColorsList")) {
-        // Сравнивать с данными внутри и перерисовывать при необходимости
         document.getElementById("redactColorsList").closest("li").remove();
       }
 
       const card = await getCardById(id);
       console.log(card);
-      setValueHandler(card);
+      RedactCardAdditionsController.setValueHandler(card);
     }
 
     smartOpenOverlay(overlayRedact, formRedact, openedOverlayRedactButton);
@@ -63,7 +57,7 @@ overlayRedact.addEventListener("keydown", (e) => {
 formRedact.addEventListener("input", (e) => {
   if (e.target.classList.contains("addition__content")) {
     const input = e.target;
-    resize(input);
+    RedactCardAdditionsController.resize(input);
     input.name = input.value.trim() || " ";
   }
 });
@@ -74,10 +68,14 @@ formRedact.addEventListener("click", (e) => {
     e.target.closest(".redact-form__addition").remove();
   } else if (e.target.closest(".addition__add")) {
     e.stopPropagation();
-    const newLi = createAddition();
-    const addBtnLi = e.target.closest("li");
-    const redactAdditionsList = addBtnLi.closest(".redact-form__additions");
-    redactAdditionsList.insertBefore(newLi, addBtnLi);
-    resize(newLi.querySelector(".addition__content"));
+    const addItemLi = e.target.closest("li");
+    const additionList = addItemLi.closest(".redact-form__additions");
+
+    const { additionItem, additionInput } =
+      RedactCardAdditionsController.createAddition();
+
+    additionList.insertBefore(additionItem, addItemLi);
+    RedactCardAdditionsController.resize(additionInput);
+    additionInput.focus();
   }
 });
