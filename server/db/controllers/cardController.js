@@ -63,7 +63,7 @@ class CardController {
       ]);
 
       const cards = await Card.findAll();
-      return res.json({ status: "success", cards });
+      return res.json({ cards, event: "createExamples" });
     } catch (e) {
       console.error(e);
       next(ApiError.badRequest(e.message));
@@ -89,7 +89,7 @@ class CardController {
       if (colors !== undefined) card.colors = colors;
 
       await card.save();
-      return res.json({ status: "success" });
+      return res.json({ card, event: "update" });
     } catch (e) {
       console.error(e.message);
       return next(ApiError.internal(e.message));
@@ -126,7 +126,7 @@ class CardController {
     try {
       await Card.destroy({ truncate: true, restartIdentity: true });
 
-      return res.json({ status: "success" });
+      return res.json({ event: "deleteAll" });
     } catch (e) {
       console.error(e.message);
       return next(ApiError.internal(e.message));
@@ -144,7 +144,7 @@ class CardController {
 
       await card.destroy();
 
-      return res.json({ status: "success" });
+      return res.json({ event: "deleteOne" });
     } catch (e) {
       console.error(e.message);
       return next(ApiError.internal(e.message));

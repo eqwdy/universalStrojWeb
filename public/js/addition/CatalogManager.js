@@ -32,8 +32,15 @@ class CatalogManager {
     }
   }
 
+  async initCatalog(container, options) {
+    await this.renderCatalogCards(container, options);
+    document.addEventListener("catalogCardDbChanged", async () => {
+      container.querySelectorAll(".catalog__item").forEach((el) => el.remove());
+      await this.renderCatalogCards(container, options);
+    });
+  }
+
   async renderCatalogControlButtons(container) {
-    // Update cards Listener on CustomEvent
     const { createExamplesButton, deleteAllButton } =
       this.createCatalogControlButtons();
 

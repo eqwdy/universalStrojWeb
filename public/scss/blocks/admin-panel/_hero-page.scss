@@ -136,6 +136,25 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 10px;
+    margin-bottom: 20px;
+
+    @media (max-width: 1115px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 760px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__container {
+    &-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+      row-gap: 10px;
+    }
   }
 }
 

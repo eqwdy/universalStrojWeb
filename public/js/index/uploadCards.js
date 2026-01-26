@@ -1,4 +1,4 @@
 import CatalogManager from "../addition/CatalogManager.js";
 
 const catalogContainer = document.getElementById("catalogItems");
-CatalogManager.renderCatalogCards(catalogContainer, { count: 4 });
+await CatalogManager.initCatalog(catalogContainer, { count: 4 });

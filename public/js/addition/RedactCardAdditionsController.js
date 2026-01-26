@@ -73,6 +73,7 @@ class RedactCardAdditionsController {
   createAdditionEnv(title, listId) {
     const sectionItem = document.createElement("li");
     sectionItem.classList.add("redact-form__item");
+    sectionItem.classList.add("redact-form__item-addition");
 
     const sectionTitle = document.createElement("h3");
     sectionTitle.classList.add("redact-form__label");
@@ -175,6 +176,85 @@ class RedactCardAdditionsController {
     additionItem.appendChild(additionWrapper);
 
     return { additionItem, additionWrapper, additionInput, deleteButton };
+  }
+
+  collectData() {
+    let collectedData = {};
+
+    const dataList = document.querySelector(".redact-form__items");
+    dataList.querySelectorAll(".redact-form__item").forEach((li) => {
+      if (li.classList.contains(".redact-form__item-addition")) {
+        const additionsList = li.querySelector(".redact-form__additions");
+        const { additionKey, additionData } =
+          this.collectAdditionData(additionsList);
+        collectedData[additionKey] = additionData;
+      } else {
+        const input = li.querySelector(".redact-form__input");
+        collectedData[input.name] = input.value;
+      }
+    });
+
+    return collectedData;
+  }
+
+  collectAdditionData(additionsList) {
+    let additionData = {};
+    let additionKey = "";
+
+    switch (additionsList.id) {
+      case "redactTypesList":
+        additionKey = "types";
+        const typesData = this.collectDefaultAdditionData(additionsList);
+        additionData = typesData;
+
+      case "redactSizesList":
+        additionKey = "sizes";
+        const sizesData = this.collectDefaultAdditionData(additionsList);
+        additionData = sizesData;
+
+      case "redactColorsList":
+        additionKey = "colors";
+        const colorsData = this.collectColorData(additionsList);
+        additionData = colorsData;
+
+      default:
+        return new Error("uncorrect list id");
+    }
+
+    return { additionKey: additionData };
+  }
+
+  collectDefaultAdditionData(list) {
+    let additionData = {};
+
+    const inputs = list.querySelector("input");
+    inputs.forEach((input) => {
+      additionData[input.name] = input.value;
+    });
+
+    return additionData;
+  }
+
+  collectColorData(colorsList) {
+    let colorsData = {};
+
+    const additions = colorsList.querySelectorAll(".addition");
+    additions.forEach((addition) => {
+      let colorValue;
+      let colorName;
+      const inputs = addition.querySelectorAll("input");
+      inputs.forEach((input) => {
+        if (input.type === "color") {
+          colorValue = input.value;
+        } else if (input.type === "text") {
+          colorName = input.value;
+        }
+      });
+
+      colorsData[colorName] = colorValue;
+    });
+
+    return colorsData;
   }
 
   resize(input) {

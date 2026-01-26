@@ -16,6 +16,10 @@ export async function createCard(formData, token) {
 
     const answer = await response.json();
 
+    document.dispatchEvent(new CustomEvent("catalogCardDbChanged"), {
+      detail: { event: answer.event },
+    });
+
     return answer;
   } catch (error) {
     return new Error(error.message || "Ошибка запроса");
@@ -38,6 +42,10 @@ export async function createExamplesCards(token) {
     }
 
     const answer = await response.json();
+
+    document.dispatchEvent(new CustomEvent("catalogCardDbChanged"), {
+      detail: { event: answer.event },
+    });
 
     return answer;
   } catch (error) {
@@ -102,6 +110,10 @@ export async function deleteAllCards(token) {
 
     const answer = await response.json();
 
+    document.dispatchEvent(new CustomEvent("catalogCardDbChanged"), {
+      detail: { event: answer.event },
+    });
+
     return answer;
   } catch (error) {
     return new Error(error.message || "Ошибка запроса");
@@ -124,6 +136,10 @@ export async function deleteCardsById(id, token) {
     }
 
     const answer = await response.json();
+
+    document.dispatchEvent(new CustomEvent("catalogCardDbChanged"), {
+      detail: { event: answer.event },
+    });
 
     return answer;
   } catch (error) {
@@ -148,6 +164,10 @@ export async function updateCard(id, formData, token) {
     }
 
     const answer = await response.json();
+
+    document.dispatchEvent(new CustomEvent("catalogCardDbChanged"), {
+      detail: { event: answer.event },
+    });
 
     return answer;
   } catch (error) {

@@ -1,6 +1,7 @@
 import { getJWTToken } from "../addition/jwtTokenControl.js";
 import { choseCloseOverlay } from "../addition/modalsControl.js";
 import { updateCard } from "../backendRequsts/cardsCRUD.js";
+import RedactCardAdditionsController from "../addition/RedactCardAdditionsController.js";
 
 const overlayRedact = document.getElementById("overlayRedact");
 const formRedact = document.getElementById("formRedact");
@@ -47,39 +48,30 @@ validatorRedact
   ])
   .onSuccess(async (e) => {
     e.preventDefault();
-    const formRedactData = new FormData(formRedact);
-    const toDelete = [];
-    for (const [key, value] of formRedactData.entries()) {
-      if (value.trim() === "") {
-        toDelete.push(key);
-      }
-    }
-    toDelete.forEach((key) => formRedactData.delete(key));
-
-    const id = formRedact.dataset.productId;
 
     try {
-      const answer = await updateCard(id, formRedactData, getJWTToken());
+      //   const answer = await updateCard(id, formRedactData, getJWTToken());
 
-      if (answer instanceof Error) {
-        switch (answer.message) {
-          case "Card not found":
-            return badAnswerPopup("Товар не найден!");
+      //   if (answer instanceof Error) {
+      //     switch (answer.message) {
+      //       case "Card not found":
+      //         return badAnswerPopup("Товар не найден!");
 
-          default:
-            return badAnswerPopup("Ошибка при изменение товара!");
-        }
-      }
+      //       default:
+      //         return badAnswerPopup("Ошибка при изменение товара!");
+      //     }
+      //   }
 
-      if (answer.status !== "success") {
-        console.error(answer);
-        return badAnswerPopup("Ошибка при изменении товара!");
-      }
+      //   if (answer.status !== "success") {
+      //     console.error(answer);
+      //     return badAnswerPopup("Ошибка при изменении товара!");
+      //   }
+      console.log(RedactCardAdditionsController.collectData());
 
       goodAnswerPopup("Изменение товара прошло успешно!");
-      console.log(answer);
-      formRedact.reset();
-      choseCloseOverlay(overlayRedact, openedOverlayRedactButton);
+      //   console.log(answer);
+      //   formRedact.reset();
+      //   choseCloseOverlay(overlayRedact, openedOverlayRedactButton);
 
       document.dispatchEvent(new Event("cardRedact"));
     } catch (e) {

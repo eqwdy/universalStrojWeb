@@ -6,6 +6,9 @@ import CatalogManager from "../addition/CatalogManager.js";
 const cAdminContainer = document.getElementById("cAdminContainer");
 const adminsContainer = document.getElementById("adminsContainer");
 const catalogContainer = document.getElementById("catalogContainer");
+const catalogControlButtonsContainer = document.getElementById(
+  "catalogControlButtonsContainer",
+);
 
 try {
   const cAdminInfo = new CAdminInfo(cAdminContainer);
@@ -22,10 +25,10 @@ try {
 }
 
 try {
-  CatalogManager.renderCatalogCards(catalogContainer, {
+  CatalogManager.initCatalog(catalogContainer, {
     token: getJWTToken(),
   }).then(() => {
-    CatalogManager.renderCatalogControlButtons(catalogContainer);
+    CatalogManager.renderCatalogControlButtons(catalogControlButtonsContainer);
   });
 } catch (e) {
   console.error(e);
