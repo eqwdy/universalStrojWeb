@@ -23,6 +23,7 @@ window.addEventListener("mousedown", async (e) => {
 
     if (openedOverlayRedactButton.dataset.productId) {
       const id = openedOverlayRedactButton.dataset.productId;
+      formRedact.dataset.productId = id;
       // Сравнивать с данными внутри и перерисовывать только при необходимости
       if (document.getElementById("redactTypesList")) {
         document.getElementById("redactTypesList").closest("li").remove();
@@ -35,7 +36,7 @@ window.addEventListener("mousedown", async (e) => {
       }
 
       const card = await getCardById(id);
-      console.log(card);
+      //   console.log(card);
       RedactCardAdditionsController.setValueHandler(card);
     }
 
@@ -70,12 +71,20 @@ formRedact.addEventListener("click", (e) => {
     e.stopPropagation();
     const addItemLi = e.target.closest("li");
     const additionList = addItemLi.closest(".redact-form__additions");
+    if (additionList.id === "redactColorsList") {
+      const { additionItem, additionInput } =
+        RedactCardAdditionsController.createAdditionColor();
 
-    const { additionItem, additionInput } =
-      RedactCardAdditionsController.createAddition();
+      additionList.insertBefore(additionItem, addItemLi);
+      RedactCardAdditionsController.resize(additionInput);
+      additionInput.focus();
+    } else {
+      const { additionItem, additionInput } =
+        RedactCardAdditionsController.createAddition();
 
-    additionList.insertBefore(additionItem, addItemLi);
-    RedactCardAdditionsController.resize(additionInput);
-    additionInput.focus();
+      additionList.insertBefore(additionItem, addItemLi);
+      RedactCardAdditionsController.resize(additionInput);
+      additionInput.focus();
+    }
   }
 });

@@ -95,6 +95,28 @@
     font-size: 1.125rem;
     color: #999;
     font-weight: normal;
+
+    &-addition {
+      &__wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        gap: 5px;
+        cursor: pointer;
+
+        & svg {
+          width: 25px;
+          aspect-ratio: 1;
+          transition: var(--transition-button);
+        }
+
+        &.additions-visible {
+          & svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
   }
 
   &__input {
@@ -131,6 +153,15 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    overflow: hidden;
+    transition: var(--transition-button);
+
+    &.additionsHide {
+      opacity: 0;
+      visibility: hidden;
+      //   max-height: 0;
+      //   transition: var(--transition-button);
+    }
   }
 
   &__addition {

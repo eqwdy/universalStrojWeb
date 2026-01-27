@@ -48,30 +48,26 @@ validatorRedact
   ])
   .onSuccess(async (e) => {
     e.preventDefault();
+    const id = formRedact.dataset.productId;
+    const formRedactData = RedactCardAdditionsController.collectData();
 
     try {
-      //   const answer = await updateCard(id, formRedactData, getJWTToken());
+      const answer = await updateCard(id, formRedactData, getJWTToken());
 
-      //   if (answer instanceof Error) {
-      //     switch (answer.message) {
-      //       case "Card not found":
-      //         return badAnswerPopup("Товар не найден!");
+      if (answer instanceof Error) {
+        switch (answer.message) {
+          case "Card not found":
+            return badAnswerPopup("Товар не найден!");
 
-      //       default:
-      //         return badAnswerPopup("Ошибка при изменение товара!");
-      //     }
-      //   }
-
-      //   if (answer.status !== "success") {
-      //     console.error(answer);
-      //     return badAnswerPopup("Ошибка при изменении товара!");
-      //   }
-      console.log(RedactCardAdditionsController.collectData());
+          default:
+            return badAnswerPopup("Ошибка при изменение товара!");
+        }
+      }
 
       goodAnswerPopup("Изменение товара прошло успешно!");
-      //   console.log(answer);
-      //   formRedact.reset();
-      //   choseCloseOverlay(overlayRedact, openedOverlayRedactButton);
+      console.log(answer);
+      formRedact.reset();
+      choseCloseOverlay(overlayRedact, openedOverlayRedactButton);
 
       document.dispatchEvent(new Event("cardRedact"));
     } catch (e) {

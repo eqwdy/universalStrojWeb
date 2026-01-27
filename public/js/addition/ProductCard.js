@@ -35,7 +35,7 @@ export class ProductCard {
           id: "typeGroup",
           options: this.data.types,
           type: "default",
-        })
+        }),
       );
     }
 
@@ -46,7 +46,7 @@ export class ProductCard {
           id: "sizeGroup",
           options: this.data.sizes,
           type: "default",
-        })
+        }),
       );
     }
 
@@ -57,7 +57,7 @@ export class ProductCard {
           id: "colorGroup",
           options: this.data.colors,
           type: "color",
-        })
+        }),
       );
     }
 
@@ -193,13 +193,11 @@ export class ProductCard {
         btn.textContent = option.text || option.value;
         btn.addEventListener("click", () => this.selectRadioOption(btn, group));
       } else {
+        btn.style.backgroundColor = option.value;
         btn.classList.add(`card__radio-button-color`);
         btn.setAttribute("aria-label", `${option.text}`);
-        const colorDot = document.createElement("div");
-        colorDot.classList.add(`card__radio-${option.value}`);
-        btn.appendChild(colorDot);
         btn.addEventListener("click", () =>
-          this.selectRadioOption(btn, group, ".card__radio-button-color")
+          this.selectRadioOption(btn, group, ".card__radio-button-color"),
         );
       }
 
@@ -387,7 +385,7 @@ export class ProductCard {
     let colorEl = null;
     if (this.data.colors.length) {
       const colorGroup = document.querySelector(
-        '[aria-labelledby="colorGroup"]'
+        '[aria-labelledby="colorGroup"]',
       );
       colorEl = colorGroup?.querySelector('[aria-checked="true"]');
     }

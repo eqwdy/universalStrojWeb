@@ -130,6 +130,13 @@
 .button-red:active {
   background-color: var(--color-maroon);
 }
+.button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
 .button-request {
   padding: 10px 20px;
   font-size: 1.4rem;

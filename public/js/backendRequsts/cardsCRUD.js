@@ -153,6 +153,7 @@ export async function updateCard(id, formData, token) {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       body: formData,
     });

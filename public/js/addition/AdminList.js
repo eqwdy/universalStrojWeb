@@ -116,7 +116,8 @@ export default class AdminsList {
 
   async deleteAdmin(id) {
     try {
-      const isAgree = await this.confirm();
+      const confirmText = "Вы уверены, что хотите удалить администратора?";
+      const isAgree = await redactConfirm(confirmText);
       if (!isAgree) return;
 
       const result = await deleteAdmin(id, getJWTToken());
@@ -125,25 +126,5 @@ export default class AdminsList {
       console.error(e);
       return e;
     }
-  }
-
-  confirm() {
-    return new Promise((resolve) => {
-      const dialog = document.getElementById("confirmDialog");
-      dialog.classList.remove("hidden");
-
-      const yesBtn = document.getElementById("confirmYes");
-      const noBtn = document.getElementById("confirmNo");
-
-      yesBtn.onclick = () => {
-        dialog.classList.add("hidden");
-        resolve(true);
-      };
-
-      noBtn.onclick = () => {
-        dialog.classList.add("hidden");
-        resolve(false);
-      };
-    });
   }
 }

@@ -17,71 +17,184 @@ class RedactCardAdditionsController {
     redactDescription.value = description;
 
     const redactFormList = redactTitle.closest(".redact-form__items");
-    if (types) {
-      const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
-        "Типы товара",
-        "redactTypesList",
-      );
+    // {
+    //   const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
+    //     "Типы товара",
+    //     "redactTypesList",
+    //   );
 
-      types.forEach((type) => {
-        const { additionItem } = this.createAddition(type.text, type.value);
-        additionList.insertBefore(additionItem, addItemLi);
-      });
+    //   if (types && types.length) {
+    //     types.forEach((type) => {
+    //       const { additionItem } = this.createAddition(type.text, type.value);
+    //       additionList.insertBefore(additionItem, addItemLi);
+    //     });
+    //   } else {
+    //     const { additionItem } = this.createAddition("", "");
+    //     additionList.insertBefore(additionItem, addItemLi);
+    //   }
 
-      redactFormList.insertBefore(sectionItem, redactDescriptionLi);
-      sectionItem.querySelectorAll(".addition__content").forEach((input) => {
-        this.resize(input);
-      });
-    }
-    if (sizes) {
-      const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
-        "Размеры товара",
-        "redactSizesList",
-      );
+    //   redactFormList.insertBefore(sectionItem, redactDescriptionLi);
+    //   sectionItem.querySelectorAll(".addition__content").forEach((input) => {
+    //     this.resize(input);
+    //   });
+    // }
 
-      sizes.forEach((size) => {
-        const { additionItem } = this.createAddition(size.text, size.value);
-        additionList.insertBefore(additionItem, addItemLi);
-      });
+    const typesOptions = {
+      addition: types,
+      additionTitle: "Типы товара",
+      additionListId: "redactTypesList",
+      container: redactFormList,
+      description: redactDescriptionLi,
+    };
+    this.setValueAddition(typesOptions);
 
-      redactFormList.insertBefore(sectionItem, redactDescriptionLi);
-      sectionItem.querySelectorAll(".addition__content").forEach((input) => {
-        this.resize(input);
-      });
-    }
-    if (colors) {
-      const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
-        "Цвета товара",
-        "redactColorsList",
-      );
+    const sizesOptions = {
+      addition: sizes,
+      additionTitle: "Размеры товара",
+      additionListId: "redactSizesList",
+      container: redactFormList,
+      description: redactDescriptionLi,
+    };
+    this.setValueAddition(sizesOptions);
 
-      colors.forEach((color) => {
-        const { additionItem } = this.createAdditionColor(
-          color.text,
-          color.value,
-        );
-        additionList.insertBefore(additionItem, addItemLi);
-      });
+    const colorsOptions = {
+      addition: colors,
+      additionTitle: "Цвета товара",
+      additionListId: "redactColorsList",
+      container: redactFormList,
+      description: redactDescriptionLi,
+    };
+    this.setValueAdditionColor(colorsOptions);
+    // {
+    //   const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
+    //     "Цвета товара",
+    //     "redactColorsList",
+    //   );
 
-      redactFormList.insertBefore(sectionItem, redactDescriptionLi);
-      sectionItem.querySelectorAll(".addition__content").forEach((input) => {
-        this.resize(input);
-      });
-    }
+    //   if (colors && colors.length) {
+    //     colors.forEach((color) => {
+    //       const { additionItem } = this.createAdditionColor(
+    //         color.text,
+    //         color.value,
+    //       );
+    //       additionList.insertBefore(additionItem, addItemLi);
+    //     });
+    //   } else {
+    //     const { additionItem } = this.createAdditionColor();
+    //     additionList.insertBefore(additionItem, addItemLi);
+    //   }
+
+    //   redactFormList.insertBefore(sectionItem, redactDescriptionLi);
+    // }
+
+    document.querySelectorAll(".addition__content").forEach((input) => {
+      this.resize(input);
+    });
   }
+
+  setValueAddition({
+    addition,
+    additionTitle,
+    additionListId,
+    container,
+    description,
+  }) {
+    const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
+      additionTitle,
+      additionListId,
+    );
+
+    if (addition && addition.length) {
+      addition.forEach((el) => {
+        const { additionItem } = this.createAddition(el.text, el.value);
+        additionList.insertBefore(additionItem, addItemLi);
+      });
+    } else {
+      const { additionItem } = this.createAddition();
+      additionList.insertBefore(additionItem, addItemLi);
+    }
+
+    container.insertBefore(sectionItem, description);
+    sectionItem.querySelectorAll(".addition__content").forEach((input) => {
+      this.resize(input);
+    });
+  }
+
+  setValueAdditionColor({
+    addition,
+    additionTitle,
+    additionListId,
+    container,
+    description,
+  }) {
+    const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
+      additionTitle,
+      additionListId,
+    );
+
+    if (addition && addition.length) {
+      addition.forEach((el) => {
+        const { additionItem } = this.createAdditionColor(el.text, el.value);
+        additionList.insertBefore(additionItem, addItemLi);
+      });
+    } else {
+      const { additionItem } = this.createAdditionColor();
+      additionList.insertBefore(additionItem, addItemLi);
+    }
+
+    container.insertBefore(sectionItem, description);
+    sectionItem.querySelectorAll(".addition__content").forEach((input) => {
+      this.resize(input);
+    });
+  }
+
+  //   createSection(sectionTitle, additionListId) {
+  //     const { sectionItem, additionList, addItemLi } = this.createAdditionEnv(
+  //       sectionTitle,
+  //       additionListId,
+  //     );
+
+  //     if (colors && colors.length) {
+  //       colors.forEach((color) => {
+  //         const { additionItem } = this.createAdditionColor(
+  //           color.text,
+  //           color.value,
+  //         );
+  //         additionList.insertBefore(additionItem, addItemLi);
+  //       });
+  //     } else {
+  //       const { additionItem } = this.createAdditionColor("", "");
+  //       additionList.insertBefore(additionItem, addItemLi);
+  //     }
+
+  //     redactFormList.insertBefore(sectionItem, redactDescriptionLi);
+  //     sectionItem.querySelectorAll(".addition__content").forEach((input) => {
+  //       this.resize(input);
+  //     });
+  //   }
 
   createAdditionEnv(title, listId) {
     const sectionItem = document.createElement("li");
     sectionItem.classList.add("redact-form__item");
     sectionItem.classList.add("redact-form__item-addition");
 
+    const sectionTitleWrapper = document.createElement("div");
+    sectionTitleWrapper.classList.add("redact-form__label-addition__wrapper");
+    sectionTitleWrapper.innerHTML = `<svg fill="#fff" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <path d="M759.2 419.8L697.4 358 512 543.4 326.6 358l-61.8 61.8L512 667z"/>
+    </svg>`;
+
     const sectionTitle = document.createElement("h3");
-    sectionTitle.classList.add("redact-form__label");
+    sectionTitle.classList.add(
+      "redact-form__label",
+      "redact-form__label-addition",
+    );
     sectionTitle.textContent = title;
 
     const additionList = document.createElement("ul");
-    additionList.classList.add("redact-form__additions");
+    additionList.classList.add("redact-form__additions", "additionsHide");
     additionList.id = listId;
+    additionList.style.height = 0;
 
     const addItemLi = document.createElement("li");
     addItemLi.classList.add(
@@ -93,10 +206,31 @@ class RedactCardAdditionsController {
     addBtn.type = "button";
     addBtn.classList.add("addition__add");
 
+    sectionTitleWrapper.addEventListener("click", () => {
+      if (additionList.classList.contains("additionsHide")) {
+        additionList.classList.remove("additionsHide");
+        sectionTitleWrapper.classList.add("additions-visible");
+        additionList.style.height = additionList.scrollHeight + "px";
+        additionList.addEventListener(
+          "transitionend",
+          () => {
+            additionList.style.height = "auto";
+          },
+          { once: true },
+        );
+      } else {
+        additionList.classList.add("additionsHide");
+        sectionTitleWrapper.classList.remove("additions-visible");
+        additionList.style.height = 0;
+      }
+    });
+
     addItemLi.appendChild(addBtn);
     additionList.appendChild(addItemLi);
 
-    sectionItem.appendChild(sectionTitle);
+    sectionTitleWrapper.appendChild(sectionTitle);
+
+    sectionItem.appendChild(sectionTitleWrapper);
     sectionItem.appendChild(additionList);
 
     return { sectionItem, sectionTitle, additionList, addItemLi, addBtn };
@@ -127,7 +261,6 @@ class RedactCardAdditionsController {
     const additionPalette = document.createElement("input");
     additionPalette.type = "color";
     additionPalette.value = value || "#000000";
-    // additionPalette.dataset.colorValue = additionPalette.value;
 
     additionPaletteWrapper.appendChild(additionPalette);
     additionWrapper.appendChild(additionPaletteWrapper);
@@ -179,81 +312,87 @@ class RedactCardAdditionsController {
   }
 
   collectData() {
-    let collectedData = {};
+    const collectedData = {};
 
     const dataList = document.querySelector(".redact-form__items");
     dataList.querySelectorAll(".redact-form__item").forEach((li) => {
-      if (li.classList.contains(".redact-form__item-addition")) {
+      if (li.classList.contains("redact-form__item-addition")) {
         const additionsList = li.querySelector(".redact-form__additions");
         const { additionKey, additionData } =
           this.collectAdditionData(additionsList);
         collectedData[additionKey] = additionData;
       } else {
         const input = li.querySelector(".redact-form__input");
-        collectedData[input.name] = input.value;
+        if (input) {
+          collectedData[input.name] = input.value;
+        }
       }
     });
 
-    return collectedData;
+    return JSON.stringify(collectedData);
   }
 
   collectAdditionData(additionsList) {
-    let additionData = {};
     let additionKey = "";
+    let additionData = [];
 
     switch (additionsList.id) {
       case "redactTypesList":
         additionKey = "types";
-        const typesData = this.collectDefaultAdditionData(additionsList);
-        additionData = typesData;
+        additionData = this.collectDefaultAdditionData(additionsList);
+        break;
 
       case "redactSizesList":
         additionKey = "sizes";
-        const sizesData = this.collectDefaultAdditionData(additionsList);
-        additionData = sizesData;
+        additionData = this.collectDefaultAdditionData(additionsList);
+        break;
 
       case "redactColorsList":
         additionKey = "colors";
-        const colorsData = this.collectColorData(additionsList);
-        additionData = colorsData;
+        additionData = this.collectColorData(additionsList);
+        break;
 
       default:
-        return new Error("uncorrect list id");
+        throw new Error("uncorrect list id");
     }
 
-    return { additionKey: additionData };
+    return { additionKey, additionData };
   }
 
   collectDefaultAdditionData(list) {
-    let additionData = {};
-
-    const inputs = list.querySelector("input");
+    const additionData = [];
+    const inputs = list.querySelectorAll("input[type='text']");
     inputs.forEach((input) => {
-      additionData[input.name] = input.value;
+      if (input.value.trim() !== "") {
+        additionData.push({
+          value: input.name.trim(),
+          text: input.value.trim(),
+        });
+      }
     });
-
     return additionData;
   }
 
   collectColorData(colorsList) {
-    let colorsData = {};
-
+    const colorsData = [];
     const additions = colorsList.querySelectorAll(".addition");
     additions.forEach((addition) => {
-      let colorValue;
-      let colorName;
+      let colorValue = "";
+      let colorName = "";
       const inputs = addition.querySelectorAll("input");
+
       inputs.forEach((input) => {
         if (input.type === "color") {
           colorValue = input.value;
         } else if (input.type === "text") {
-          colorName = input.value;
+          colorName = input.value.trim();
         }
       });
 
-      colorsData[colorName] = colorValue;
+      if (colorName.trim() !== "") {
+        colorsData.push({ value: colorValue, text: colorName });
+      }
     });
-
     return colorsData;
   }
 

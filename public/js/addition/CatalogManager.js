@@ -2,6 +2,7 @@ import {
   getCards,
   deleteAllCards,
   createExamplesCards,
+  deleteCardsById,
 } from "../backendRequsts/cardsCRUD.js";
 import { getJWTToken } from "./jwtTokenControl.js";
 
@@ -14,10 +15,10 @@ class CatalogManager {
       const cards = await this.getCards(count);
 
       if (token) {
-        cards.forEach((card) => {
-          const catalogItem = this.createAdminCatalogItem(card);
+        for (const card of cards) {
+          const catalogItem = await this.createAdminCatalogItem(card);
           fragment.appendChild(catalogItem);
-        });
+        }
       } else {
         cards.forEach((card) => {
           const catalogItem = this.createCatalogItem(card);
@@ -86,7 +87,7 @@ class CatalogManager {
     return li;
   }
 
-  createAdminCatalogItem({
+  async createAdminCatalogItem({
     id,
     img,
     title,
@@ -107,7 +108,7 @@ class CatalogManager {
     body.classList.add("product__body");
 
     const imgWrapper = document.createElement("div");
-    imgWrapper.classList.add("product__wrapper", "product__wrapper-img");
+    imgWrapper.classList.add("product__wrapper-img");
 
     const titleWrapper = document.createElement("div");
     titleWrapper.classList.add("product__wrapper", "product__wrapper-title");
@@ -121,19 +122,6 @@ class CatalogManager {
       "product__wrapper-description",
     );
 
-    const redactButton = document.createElement("button");
-    redactButton.classList.add("product__button-redact", "button");
-    redactButton.textContent = "Редактировать";
-    redactButton.addEventListener("click", () => {});
-    redactButton.type = "button";
-    redactButton.setAttribute("aria-controls", "overlayRedact");
-    redactButton.dataset.productId = id;
-
-    const hrefButton = document.createElement("a");
-    hrefButton.href = `/catalog/card/${id}`;
-    hrefButton.classList.add("product__button", "button", "button-arrow");
-    hrefButton.textContent = "Перейти к карточке товара";
-
     imgWrapper.appendChild(this.createImgEl(img, title));
     titleWrapper.appendChild(this.createTitleEl(title));
     priceWrapper.appendChild(this.createPriceEl(price));
@@ -143,7 +131,31 @@ class CatalogManager {
 
     article.appendChild(imgWrapper);
     article.appendChild(body);
-    article.appendChild(redactButton);
+
+    const { redactButton, deleteButton, hrefButton } =
+      this.createAdminButtons(id);
+
+    deleteButton.addEventListener("click", async () => {
+      try {
+        const confirmText = "Вы уверены, что хотите удалить карточку товара?";
+        const isAgree = await redactConfirm(confirmText);
+        if (!isAgree) return;
+
+        const asnwer = await deleteCardsById(id, getJWTToken());
+        goodAnswerPopup("Карточка с товаром удалена!");
+      } catch (e) {
+        console.error(e);
+        badAnswerPopup("Ошибка при удалении карточки товара!");
+      }
+    });
+
+    const controlButtonsWrapper = document.createElement("div");
+    controlButtonsWrapper.classList.add("product__button-wrapper");
+
+    controlButtonsWrapper.appendChild(redactButton);
+    controlButtonsWrapper.appendChild(deleteButton);
+
+    article.appendChild(controlButtonsWrapper);
     article.appendChild(hrefButton);
 
     li.appendChild(article);
@@ -244,6 +256,44 @@ class CatalogManager {
     redactElData.appendChild(redactSvg);
 
     return redactElData;
+  }
+
+  createAdminButtons(id) {
+    const redactButton = document.createElement("button");
+    redactButton.classList.add(
+      "product__button-redact",
+      "product__button-absolute",
+      "button-reset",
+    );
+    redactButton.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke-width="0"/>
+    <g stroke-linecap="round" stroke-linejoin="round"/>
+    <g> <path d="M9.65661 17L6.99975 17L6.99975 14M6.10235 14.8974L17.4107 3.58902C18.1918 2.80797 19.4581 2.80797 20.2392 3.58902C21.0202 4.37007 21.0202 5.6364 20.2392 6.41745L8.764 17.8926C8.22794 18.4287 7.95992 18.6967 7.6632 18.9271C7.39965 19.1318 7.11947 19.3142 6.8256 19.4723C6.49475 19.6503 6.14115 19.7868 5.43395 20.0599L3 20.9998L3.78312 18.6501C4.05039 17.8483 4.18403 17.4473 4.3699 17.0729C4.53497 16.7404 4.73054 16.424 4.95409 16.1276C5.20582 15.7939 5.50466 15.4951 6.10235 14.8974Z" stroke="#000000" stroke-width="1.8240000000000003" stroke-linecap="round" stroke-linejoin="round"/> </g>
+    </svg>`;
+    redactButton.type = "button";
+    redactButton.setAttribute("aria-controls", "overlayRedact");
+    redactButton.dataset.productId = id;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add(
+      "product__button-delete",
+      "product__button-absolute",
+      "button-reset",
+    );
+    deleteButton.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke-width="0"></g>
+      <g stroke-linecap="round" stroke-linejoin="round"></g>
+      <path d="M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ee2020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>`;
+    deleteButton.type = "button";
+    deleteButton.dataset.productId = id;
+
+    const hrefButton = document.createElement("a");
+    hrefButton.href = `/catalog/card/${id}`;
+    hrefButton.classList.add("product__button", "button", "button-arrow");
+    hrefButton.textContent = "Перейти к карточке товара";
+
+    return { redactButton, deleteButton, hrefButton };
   }
 
   async getCards(count = null) {

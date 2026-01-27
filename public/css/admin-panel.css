@@ -130,6 +130,13 @@
 .button-red:active {
   background-color: var(--color-maroon);
 }
+.button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
 .button-request {
   padding: 10px 20px;
   font-size: 1.4rem;
@@ -1037,6 +1044,21 @@
   color: #999;
   font-weight: normal;
 }
+.redact-form__label-addition__wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: 5px;
+  cursor: pointer;
+}
+.redact-form__label-addition__wrapper svg {
+  width: 25px;
+  aspect-ratio: 1;
+  transition: var(--transition-button);
+}
+.redact-form__label-addition__wrapper.additions-visible svg {
+  transform: rotate(180deg);
+}
 .redact-form__input {
   max-width: 100%;
   width: 100%;
@@ -1065,6 +1087,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  overflow: hidden;
+  transition: var(--transition-button);
+}
+.redact-form__additions.additionsHide {
+  opacity: 0;
+  visibility: hidden;
 }
 .redact-form__addition-add {
   display: flex;
@@ -1321,6 +1349,7 @@
 }
 
 .product {
+  position: relative;
   border-radius: 2px;
   max-width: 450px;
   padding: 10px;
@@ -1393,6 +1422,33 @@
 .product__redact:active {
   opacity: 1;
 }
-.product__button-redact {
-  margin-bottom: 10px;
+.product__button-wrapper {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product__button-redact, .product__button-delete {
+  width: 40px;
+  aspect-ratio: 1;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-button);
+}
+@media (hover: hover) {
+  .product__button-redact:hover, .product__button-delete:hover {
+    opacity: 0.8;
+  }
+}
+@media (hover: none) {
+  .product__button-redact:active, .product__button-delete:active {
+    opacity: 0.8;
+  }
 }/*# sourceMappingURL=admin-panel.css.map */

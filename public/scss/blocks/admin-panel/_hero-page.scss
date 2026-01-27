@@ -159,6 +159,7 @@
 }
 
 .product {
+  position: relative;
   border-radius: 2px;
   max-width: 450px;
   padding: 10px;
@@ -233,8 +234,35 @@
   }
 
   &__button {
-    &-redact {
-      margin-bottom: 10px;
+    // &-redact {
+    //   margin-bottom: 10px;
+    // }
+
+    &-wrapper {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    &-redact,
+    &-delete {
+      width: 40px;
+      aspect-ratio: 1;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: var(--transition-button);
+
+      @include hover {
+        opacity: 0.8;
+      }
     }
   }
 }

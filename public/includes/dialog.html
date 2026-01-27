@@ -1,5 +1,29 @@
 <div id="confirmDialog" class="dialog hidden">
-  <p id="conformText">Вы уверены, что хотите удалить администратора?</p>
+  <p id="confirmText"></p>
   <button id="confirmYes">Да</button>
   <button id="confirmNo">Нет</button>
 </div>
+<script>
+  function redactConfirm(text) {
+    return new Promise((resolve) => {
+      const textEl = document.getElementById("confirmText");
+      textEl.textContent = text;
+
+      const dialog = document.getElementById("confirmDialog");
+      dialog.classList.remove("hidden");
+
+      const yesBtn = document.getElementById("confirmYes");
+      const noBtn = document.getElementById("confirmNo");
+
+      yesBtn.onclick = () => {
+        dialog.classList.add("hidden");
+        resolve(true);
+      };
+
+      noBtn.onclick = () => {
+        dialog.classList.add("hidden");
+        resolve(false);
+      };
+    });
+  }
+</script>
